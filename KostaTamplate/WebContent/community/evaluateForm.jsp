@@ -125,7 +125,9 @@ table{
         color: red;
 }
 
-
+#teacher{
+	display: none; 
+}
 
 </style>
 
@@ -140,8 +142,25 @@ table{
 		    $(this).addClass("on").prevAll("a").addClass("on"); /* 클릭한 별과, 그 앞 까지 별점에 on 클래스 추가 */
 		    return false;
 		});
-		
-		
+	
+				
+			var cate = document.getElementById("category");
+			var tea = document.getElementById("teacher");				
+			
+			
+			cate.onclick = function(){
+			
+				if(cate.value != "cate"){
+					
+					tea.style.display = 'inline-block';
+					
+				} else {
+					
+					tea.style.display = 'none';
+				}			
+			
+			}
+			
 	});
 
 </script>
@@ -168,7 +187,16 @@ table{
             <a class="nav-link" href="../Login/login.html">로그인</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../regForm/regform.html">회원가입</a>
+            <a class="nav-link" href="../marga/index.html">로그아웃</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" onclick="window.open('../regForm/regform.html', '_blank', 'width=600, height=400');">회원가입</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../mypage/mypage.html">마이페이지</a>
+          </li>        
+            <li class="nav-item">
+            <a class="nav-link" href="../classlist/cart.html">강의목록</a>
           </li>
           <li class="nav-item">
 			 <a class="nav-link" href="Q&Apage.html"><span style="color: white; font-weight: bold">내강의실</span></a>
@@ -232,7 +260,27 @@ table{
 	    <hr>
 
 			<form name="form" id="form" role="form" method="post" action="${pageContext.request.contextPath}/board/saveBoard">
-		
+				
+				<div class="mb-3">
+					<label for="title" style="font-weight: bold">강의명/강사명</label>
+					<select id="category">
+						<option value="cate">강의명</option>
+						<option value="java">JAVA</option>
+						<option value="python">Python</option>
+						<option value="html">HTML</option>
+						<option value="css">CSS</option>
+						<option value="javascript">JavaScript</option>
+					</select>					
+					<select id="teacher">
+						<option>강사명</option>
+						<option>김민호강사</option>
+						<option>신진섭강사</option>
+						<option>이영진강사</option>
+						<option>김경화강사</option>
+						<option>신선호강사</option>
+					</select>
+				</div>
+				
 				<div class="mb-3">
 					<label for="title" style="font-weight: bold">별점주기</label>
 					<p id="star_grade">

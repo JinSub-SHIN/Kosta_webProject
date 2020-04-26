@@ -167,7 +167,16 @@ table{
             <a class="nav-link" href="../Login/login.html">로그인</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../regForm/regform.html">회원가입</a>
+            <a class="nav-link" href="../marga/index.html">로그아웃</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" onclick="window.open('../regForm/regform.html', '_blank', 'width=600, height=400');">회원가입</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../mypage/mypage.html">마이페이지</a>
+          </li>        
+            <li class="nav-item">
+            <a class="nav-link" href="../classlist/cart.html">강의목록</a>
           </li>
           <li class="nav-item">
 			 <a class="nav-link" href="Q&Apage.html"><span style="color: white; font-weight: bold">내강의실</span></a>
