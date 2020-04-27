@@ -11,7 +11,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>JavaChip_DashBoard</title>
+    <title>JavaChip_Tables</title>
 
     <!-- Fontfaces CSS-->
     <link href="css/font-face.css" rel="stylesheet" media="all">
@@ -53,7 +53,7 @@
                         </button>
                     </div>
                 </div>
-            </div>
+            </div>            
             <nav class="navbar-mobile">
                 <div class="container-fluid">
                     <ul class="navbar-mobile__list list-unstyled">
@@ -65,15 +65,15 @@
                         </li>
                         <li>
                             <a href="table.jsp">
-                                <i class="fas fa-table"></i>판매품목</a>
+                                <i class="fas fa-table"></i>Tables</a>
                         </li>
                         <li>
                             <a href="form.jsp">
-                                <i class="far fa-check-square"></i>고객관리</a>
+                                <i class="far fa-check-square"></i>Forms</a>
                         </li>                        
                     </ul>
                 </div>
-            </nav>
+            </nav>            
         </header>
         <!-- END HEADER MOBILE-->
 
@@ -87,20 +87,20 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        <li class="active has-sub">
+                        <li class="has-sub">
                             <a class="js-arrow" href="index.jsp">
                                 <i class="fas fa-tachometer-alt"></i>대시보드</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">                               
                             </ul>
-                        </li>
-                        <li>
+                        </li>                       
+                        <li class="active">
                             <a href="table.jsp">
                                 <i class="fas fa-table"></i>판매품목</a>
                         </li>
                         <li>
                             <a href="form.jsp">
                                 <i class="far fa-check-square"></i>고객관리</a>
-                        </li> 
+                        </li>                         
                     </ul>
                 </nav>
             </div>
@@ -114,10 +114,7 @@
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="header-wrap">
-                        
-                        <!-- 여기에 강의명을 입력하였을때 action 처리 해준다... -->
-                                                            
-                                <div class="account-wrap">
+                            <div class="account-wrap">
                                     <div class="account-item clearfix js-item-menu">
                                         <div class="image">
                                             <img src="images/icon/admin01.png" alt="JinSub_SHIN" />
@@ -159,93 +156,30 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-   					        </div>
+                              </div>
                            </div>
-                         </div>                    
+                       </div>
+                    </div>                    
             </header>
-            <!-- HEADER DESKTOP-->
+            <!-- END HEADER DESKTOP-->
 
             <!-- MAIN CONTENT-->
             <div class="main-content">
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="overview-wrap">
-                                    <h2 class="title-1">한눈에보기</h2>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row m-t-25">
-                            <div class="col-sm-6 col-lg-3">
-                                <div class="overview-item overview-item--c1">
-                                    <div class="overview__inner">
-                                        <div class="overview-box clearfix">
-                                            <div class="icon">
-                                                <i class="zmdi zmdi-account-o"></i>
-                                            </div>
-                                            <br>
-                                            <div class="text">
-                                                <h2>170</h2>
-                                                <span>총 회원수</span>
-                                            </div>
-                                        </div>                                       
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-lg-3">
-                                <div class="overview-item overview-item--c2">
-                                    <div class="overview__inner">
-                                        <div class="overview-box clearfix">
-                                            <div class="icon">
-                                                <i class="zmdi zmdi-shopping-cart"></i>
-                                            </div>
-                                            <br>
-                                            <div class="text">
-                                                <h2>1875</h2>
-                                                <span>총 판매수량</span>
-                                            </div>                                    
-                                        </div>                                       
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-lg-3">
-                                <div class="overview-item overview-item--c3">
-                                    <div class="overview__inner">
-                                        <div class="overview-box clearfix">
-                                            <div class="icon">
-                                                <i class="zmdi zmdi-calendar-note"></i>
-                                            </div>
-                                            <br>
-                                            <div class="text">
-                                                <h2>36</h2>
-                                                <span>금주 판매량</span>
-                                            </div>
-                                        </div>                                        
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-lg-3">
-                                <div class="overview-item overview-item--c4">
-                                    <div class="overview__inner">
-                                        <div class="overview-box clearfix">
-                                            <div class="icon">
-                                                <i class="fas fa-won-sign"></i>
-                                            </div>
-                                            <div class="text">
-                                                <h2>772,500</h2>
-                                                <span>총 판매금액</span>
-                                            </div>
-                                        </div>                                       
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
                             <div class="col-lg-9" style="max-width: 100%">
-                                <h2 class="title-1 m-b-25">최근판매품목</h2>
-                                <div class="table-responsive table--no-card m-b-40">
+                            <h2 class="title-1 m-b-25">판매품목</h2>
+                                    <button class="au-btn au-btn-icon au-btn--blue" 
+                                   onclick="window.open('write.jsp','상품등록','width=700,height=540,location=no,status=no,scrollbars=yes');">
+                                        <i class="zmdi zmdi-plus"></i>상품등록</button>
+                                    <button class="au-btn au-btn-icon au-btn--blue" 
+                                   onclick="window.open('writeChapter.jsp','강의등록','width=700,height=540,location=no,status=no,scrollbars=yes');">
+                                        <i class="zmdi zmdi-plus"></i>강의등록</button>
+                                        
+                                        <hr>
+                                        
+                                <div class="table-responsive table--no-card m-b-30">
                                     <table class="table table-borderless table-striped table-earning">
                                         <thead>
                                             <tr>
@@ -325,7 +259,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </div> 
+                            </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="copyright">
@@ -337,8 +271,6 @@
                     </div>
                 </div>
             </div>
-            <!-- END MAIN CONTENT-->
-            <!-- END PAGE CONTAINER-->
         </div>
 
     </div>

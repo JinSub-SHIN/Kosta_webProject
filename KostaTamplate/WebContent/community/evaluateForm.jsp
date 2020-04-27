@@ -179,30 +179,30 @@ table{
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="../marga/index.html">Home
-              <span class="sr-only">(current)</span>
-            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../Login/login.html">로그인</a>
+            <a class="nav-link" href="../Login/login.jsp">로그인</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../marga/index.html">로그아웃</a>
+            <a class="nav-link" href="../marga/index.jsp">로그아웃</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" onclick="window.open('../regForm/regform.html', '_blank', 'width=600, height=400');">회원가입</a>
+            <a class="nav-link" onclick="window.open('../regForm/regform.jsp', '_blank', 'width=600, height=400');">회원가입</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../mypage/mypage.html">마이페이지</a>
-          </li>        
-            <li class="nav-item">
-            <a class="nav-link" href="../classlist/cart.html">강의목록</a>
+            <a class="nav-link" href="../mypage/mypage.jsp">마이페이지</a>
+          </li>     
+          <li class="nav-item">
+			<a class="nav-link" href="../mycart/newmycart.jsp">장바구니</a>
+		  </li>    
+          <li class="nav-item">
+            <a class="nav-link" href="../classlist/cart.jsp">강의목록</a>
           </li>
           <li class="nav-item">
-			 <a class="nav-link" href="Q&Apage.html"><span style="color: white; font-weight: bold">내강의실</span></a>
+			 <a class="nav-link" href="../mygangisil/mygangisil.jsp"><span style="color: white; font-weight: bold">내강의실</span></a>
 		  </li>
           <li class="nav-item">
-            <a class="nav-link" href="../community/community.html">커뮤니티</a>
+            <a class="nav-link" href="../community/community.jsp">커뮤니티</a>
           </li>
         </ul>
       </div>
@@ -303,7 +303,7 @@ table{
 
 				<button type="button" class="btn btn-sm btn-primary" id="btnSave">저장</button>
 
-				<button type="button" class="btn btn-sm btn-primary" onclick='location.href="evaluation.html"'>목록</button>
+				<button type="button" class="btn btn-sm btn-primary" onclick='location.href="evaluation.jsp"'>목록</button>
 
 			</div>
 

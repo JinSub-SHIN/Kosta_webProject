@@ -2,8 +2,9 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  
+
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
@@ -11,110 +12,10 @@
   <title>JavaChip-Community</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">  
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
   <link href="css/simple-sidebar.css" rel="stylesheet">
-
-<style>
-table{
-	width: 1200px;
-	margin-top: 20px;
-
-}
-
-/*
-
-.page{
-	text-align: center;
-	width: 50%;
-}
-
-.pagination{
-	list-style: none;
-	display: inline-block;
-	padding: 0;
-	margin-top: 20px;
-}
-
-.pagination li{
-	display: inline;
-	text-align: center;
-}
-
-.pagination a{
-	float:left;
-	display: block;
-	font-size: 14px;
-	text-decoration: none;
-	padding: 5px 12px;
-	color: #96a0ad;
-	line-height: 1.5;
-	
-}
-
-.first{
-	margin-right: 15px;
-
-}
-
-.last{
-	margin-left: 15px;
-
-}
-
-.first:hover, .last:hover, .left:hover, .right:hover {
-	color: #2e9cdf;
-	
-}
-
-.pagination a.active{
-	cursor : default;
-	color : #ffffff;
-}
-
-.pagination a:active{
-	outline: none;
-}
-
-.modal .num{
-	margin-left: 3px;
-	padding: 0;
-	width: 30px;
-	height: 30px;
-	line-height: 30px;
-	-moz-border-radius:100%;
-	-webkit-border-radius: 100%;
-	border-radius: 100%;
-}
-
-.modal .num:hover {
-	background-color: #2e9cdf;
-	color: #ffffff;
-}
-
-.modal .num.active, .modal .num:active{
-	background-color: #2e9cdf;
-	cursor: pointer;
-}
-
-.arrow-left{
-	width: 0px;
-	height: 0;
-	border-top: 10px solid transparent;
-	border-bottom: 10px solid transparent;
-	border-right: 10px solid blue;
-}
-
-
-*/
-
-
-
-
-
-</style>
-
 
 </head>
 
@@ -201,66 +102,14 @@ table{
           </ul>
         </div>
       </nav>
-      
+
       <div class="container-fluid">
-	    <table class="table table-striped">
-	    	<thead>
-	    	<tr>
-	    		<th>강의명/강사명</th>
-	    		<th>평점</th>
-	    		<th>내용</th>	    		
-	    		<th>작성자</th>
-	    		<th>날짜</th>	    		
-	    	</tr>
-	    	</thead>
-	    	<tbody>
-	    	<tr>
-	    		<td>(신진섭강사)자바왕초보</td>
-	    		<td><span style="color:red">&#9733; &#9733; &#9733; &#9733; &#9733;</span></td>
-	    		<td>좋아요!</td>
-	    		<td>낑깡낑깡</td>
-	    		<td>2020-04-24</td>
-	    		
-	    	</tr>
-	    	<tr>
-	    		<td>(신진섭강사)자바왕초보</td>
-	    		<td><span style="color:red">&#9733; &#9733; &#9733; &#9733; &#9733;</span></td>
-	    		<td>개꾸르!</td>
-	    		<td>홀짝홀짝</td>
-	    		<td>2020-04-24</td>	    		
-	    	</tr>
-	    	<tr>
-	    		<td>(신진섭강사)자바왕초보</td>
-	    		<td><span style="color:red">&#9733; &#9733; &#9733; &#9733; &#9734;</span></td>
-	    		<td>초급완료 중급가쥬아!</td>
-	    		<td>고수될꺼야</td>
-	    		<td>2020-04-24</td>	    		
-	    	</tr>
-	    	</tbody>	    	
-	    </table>
-	    
-<!-- 	 <div class="page">
-	    	<ul class="pagination modal">
-	    	<li><a href="#" class="first">처음페이지</a></li>
-	    	<li><a href="#" class="arrow left">&lt;&lt;</a></li>
-	    	<li><a href="#" class="num">1</a></li>
-	    	<li><a href="#" class="num">2</a></li>
-	    	<li><a href="#" class="num">3</a></li>
-	    	<li><a href="#" class="num">4</a></li>
-	    	<li><a href="#" class="arrow right">>></a></li>	 
-	    	<li><a href="#" class="last">끝페이지</a></li>   	
-	    	</ul>	    
-	    </div>
-	    
--->	    
-	    
-	    <hr>
-	    <button style="float: right" onclick="location.href='evaluateForm.jsp'">후기작성</button>
-		
-      </div>     
+        <h1 class="mt-4">C O M M U N I T Y</h1>
+        <h2 style="color: blue"><p>자바칩 커뮤니티에 오신것을 환영합니다!</p></h2>
+        <img src="images/community1.jpg" width="1200px" height="500px"></img>      
+      </div>
     </div>
     <!-- /#page-content-wrapper -->
-    
 
   </div>
   <!-- /#wrapper -->
@@ -272,6 +121,7 @@ table{
     </div>
     <!-- /.container -->
   </footer>
+
 
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>

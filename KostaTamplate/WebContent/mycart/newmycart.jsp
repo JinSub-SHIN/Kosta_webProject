@@ -162,9 +162,9 @@ table{
     <div class="bg-light border-right" id="sidebar-wrapper">
       <div class="sidebar-heading">Start Bootstrap </div>
       <div class="list-group list-group-flush">
-        <a href="Q&Aboard.jsp" class="list-group-item list-group-item-action bg-light">Q&A게시판</a>
-        <a href="evaluation.jsp" class="list-group-item list-group-item-action bg-light">강의평게시판</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">회사정보</a>
+        <a href="newmycart.jsp" class="list-group-item list-group-item-action bg-light">장바구니</a>
+        <a href="../classlist/cart.jsp" class="list-group-item list-group-item-action bg-light">강의목록</a>
+        
       </div>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -206,36 +206,51 @@ table{
 	    <table class="table table-striped">
 	    	<thead>
 	    	<tr>
-	    		<th>강의명/강사명</th>
-	    		<th>평점</th>
-	    		<th>내용</th>	    		
-	    		<th>작성자</th>
-	    		<th>날짜</th>	    		
+	    		<th>물품번호</th>
+	    		<th>이름</th>
+	    		<th>설명</th>	    		
+	    		<th>가격</th>
+	    		<th>주문하기</th>
+	    		<th>삭제</th>	    		
 	    	</tr>
 	    	</thead>
 	    	<tbody>
 	    	<tr>
-	    		<td>(신진섭강사)자바왕초보</td>
-	    		<td><span style="color:red">&#9733; &#9733; &#9733; &#9733; &#9733;</span></td>
-	    		<td>좋아요!</td>
-	    		<td>낑깡낑깡</td>
-	    		<td>2020-04-24</td>
+	    		<td>101010</td>
+	    		<td>JAVA왕초보</td>
+	    		<td>JAVA 입문자를 위한 강의</td>
+	    		<td>210,000원</td>
+	    		<td><button>주문하기</button></td>
+	    		<td><button>삭제</button></td>
 	    		
 	    	</tr>
 	    	<tr>
-	    		<td>(신진섭강사)자바왕초보</td>
-	    		<td><span style="color:red">&#9733; &#9733; &#9733; &#9733; &#9733;</span></td>
-	    		<td>개꾸르!</td>
-	    		<td>홀짝홀짝</td>
-	    		<td>2020-04-24</td>	    		
+	    		<td>101010</td>
+	    		<td>JAVA왕초보</td>
+	    		<td>JAVA 입문자를 위한 강의</td>
+	    		<td>210,000원</td>
+	    		<td><button>주문하기</button></td>
+	    		<td><button>삭제</button></td>
+	    		
 	    	</tr>
 	    	<tr>
-	    		<td>(신진섭강사)자바왕초보</td>
-	    		<td><span style="color:red">&#9733; &#9733; &#9733; &#9733; &#9734;</span></td>
-	    		<td>초급완료 중급가쥬아!</td>
-	    		<td>고수될꺼야</td>
-	    		<td>2020-04-24</td>	    		
+	    		<td>101010</td>
+	    		<td>JAVA왕초보</td>
+	    		<td>JAVA 입문자를 위한 강의</td>
+	    		<td>210,000원</td>
+	    		<td><button>주문하기</button></td>
+	    		<td><button>삭제</button></td>
+	    		
 	    	</tr>
+	    	<tr>
+	    		<td>101010</td>
+	    		<td>JAVA왕초보</td>
+	    		<td>JAVA 입문자를 위한 강의</td>
+	    		<td>210,000원</td>
+	    		<td><button>주문하기</button></td>
+	    		<td><button>삭제</button></td>	    		
+	    	</tr>
+
 	    	</tbody>	    	
 	    </table>
 	    
@@ -255,7 +270,8 @@ table{
 -->	    
 	    
 	    <hr>
-	    <button style="float: right" onclick="location.href='evaluateForm.jsp'">후기작성</button>
+	    <button style="float: right" onclick="">전체삭제</button>
+	    <button style="float: right" onclick="">전체주문</button>
 		
       </div>     
     </div>

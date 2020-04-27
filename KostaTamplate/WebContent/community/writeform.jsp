@@ -152,37 +152,37 @@ table{
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="../marga/index.html">J A V A C H I P</a>
+      <a class="navbar-brand" href="../marga/index.jsp">J A V A C H I P</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="../marga/index.html">Home
+            <a class="nav-link" href="../marga/index.jsp">Home
               <span class="sr-only">(current)</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../Login/login.html">로그인</a>
+            <a class="nav-link" href="../Login/login.jsp">로그인</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../marga/index.html">로그아웃</a>
+            <a class="nav-link" href="../marga/index.jsp">로그아웃</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" onclick="window.open('../regForm/regform.html', '_blank', 'width=600, height=400');">회원가입</a>
+            <a class="nav-link" onclick="window.open('../regForm/regform.jsp', '_blank', 'width=600, height=400');">회원가입</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../mypage/mypage.html">마이페이지</a>
+            <a class="nav-link" href="../mypage/mypage.jsp">마이페이지</a>
           </li>        
             <li class="nav-item">
-            <a class="nav-link" href="../classlist/cart.html">강의목록</a>
+            <a class="nav-link" href="../classlist/cart.jsp">강의목록</a>
           </li>
           <li class="nav-item">
-			 <a class="nav-link" href="Q&Apage.html"><span style="color: white; font-weight: bold">내강의실</span></a>
+			 <a class="nav-link" href="../mygangisil/mygangisil.jsp"><span style="color: white; font-weight: bold">내강의실</span></a>
 		  </li>
           <li class="nav-item">
-            <a class="nav-link" href="../community/community.html">커뮤니티</a>
+            <a class="nav-link" href="../community/community.jsp">커뮤니티</a>
           </li>
         </ul>
       </div>
@@ -195,8 +195,8 @@ table{
     <div class="bg-light border-right" id="sidebar-wrapper">
       <div class="sidebar-heading">Start Bootstrap </div>
       <div class="list-group list-group-flush">
-        <a href="Q&Aboard.html" class="list-group-item list-group-item-action bg-light">Q&A게시판</a>
-        <a href="evaluation.html" class="list-group-item list-group-item-action bg-light">강의평게시판</a>
+        <a href="Q&Aboard.jsp" class="list-group-item list-group-item-action bg-light">Q&A게시판</a>
+        <a href="evaluation.jsp" class="list-group-item list-group-item-action bg-light">강의평게시판</a>
         <a href="#" class="list-group-item list-group-item-action bg-light">회사정보</a>
       </div>
     </div>
@@ -270,7 +270,7 @@ table{
 
 				<button type="button" class="btn btn-sm btn-primary" id="btnSave">저장</button>
 
-				<button type="button" class="btn btn-sm btn-primary" onclick='location.href="Q&Aboard.html"'>목록</button>
+				<button type="button" class="btn btn-sm btn-primary" onclick='location.href="Q&Aboard.jsp"'>목록</button>
 
 			</div>
 

@@ -2,8 +2,9 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  
+
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
@@ -206,35 +207,34 @@ table{
 	    <table class="table table-striped">
 	    	<thead>
 	    	<tr>
-	    		<th>강의명/강사명</th>
-	    		<th>평점</th>
-	    		<th>내용</th>	    		
+	    		<th>번호</th>
+	    		<th>제목</th>
 	    		<th>작성자</th>
-	    		<th>날짜</th>	    		
+	    		<th>날짜</th>
+	    		<th>조회수</th>
 	    	</tr>
 	    	</thead>
 	    	<tbody>
 	    	<tr>
-	    		<td>(신진섭강사)자바왕초보</td>
-	    		<td><span style="color:red">&#9733; &#9733; &#9733; &#9733; &#9733;</span></td>
-	    		<td>좋아요!</td>
+	    		<td>1</td>
+	    		<td>자바1강 for문 질문이요!</td>
 	    		<td>낑깡낑깡</td>
 	    		<td>2020-04-24</td>
-	    		
+	    		<td>1</td>
 	    	</tr>
 	    	<tr>
-	    		<td>(신진섭강사)자바왕초보</td>
-	    		<td><span style="color:red">&#9733; &#9733; &#9733; &#9733; &#9733;</span></td>
-	    		<td>개꾸르!</td>
+	    		<td>2</td>
+	    		<td>자바3강 if문 질문이요!</td>
 	    		<td>홀짝홀짝</td>
-	    		<td>2020-04-24</td>	    		
+	    		<td>2020-04-24</td>
+	    		<td>37</td>
 	    	</tr>
 	    	<tr>
-	    		<td>(신진섭강사)자바왕초보</td>
-	    		<td><span style="color:red">&#9733; &#9733; &#9733; &#9733; &#9734;</span></td>
-	    		<td>초급완료 중급가쥬아!</td>
+	    		<td>3</td>
+	    		<td>파이썬2강 while문 질문이요!</td>
 	    		<td>고수될꺼야</td>
-	    		<td>2020-04-24</td>	    		
+	    		<td>2020-04-24</td>
+	    		<td>12</td>
 	    	</tr>
 	    	</tbody>	    	
 	    </table>
@@ -255,7 +255,7 @@ table{
 -->	    
 	    
 	    <hr>
-	    <button style="float: right" onclick="location.href='evaluateForm.jsp'">후기작성</button>
+	    <button style="float: right" onclick="location.href='writeform.jsp'">질문하기</button>
 		
       </div>     
     </div>
