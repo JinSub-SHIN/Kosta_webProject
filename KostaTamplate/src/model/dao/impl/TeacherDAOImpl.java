@@ -43,8 +43,9 @@ public class TeacherDAOImpl implements TeacherDAO {
 				Category category = new Category();
 				category.setId(rs.getInt("category_id"));
 
-				Teacher teacher = new Teacher(rs.getString("id"), rs.getString("pwd"), rs.getString("name"),
-						rs.getString("phone"), rs.getString("gender"), rs.getInt("status"), category);
+				Teacher teacher = new Teacher();
+						//(rs.getString("id"), rs.getString("pwd"), rs.getString("name"),
+						//rs.getString("phone"), rs.getString("gender"), rs.getInt("status"), category);
 				list.add(teacher);
 			}
 		} finally {
@@ -69,8 +70,9 @@ public class TeacherDAOImpl implements TeacherDAO {
 				Category category = new Category();
 				category.setId(rs.getInt("category_id"));
 
-				teacher = new Teacher(rs.getString("id"), rs.getString("pwd"), rs.getString("name"),
-						rs.getString("phone"), rs.getString("gender"), rs.getInt("status"), category);
+				teacher = new Teacher();
+						//(rs.getString("id"), rs.getString("pwd"), rs.getString("name"),
+						//rs.getString("phone"), rs.getString("gender"), rs.getInt("status"), category);
 			}
 		} finally {
 			DbUtil.dbClose(con, ps, rs);

@@ -35,21 +35,37 @@ public class CustomerDAOImpl implements CustomerDAO {
 	public int insert(Customer customer) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
+		PreparedStatement ps1 = null;
 		int result = 0;
-		String sql = pro.getProperty("insertCustomer");
+		String sql1 = pro.getProperty("insertPerson2");
+		String sql2 = pro.getProperty("insertCustomer");
+		/**
+		 * insertPerson2=insert into person (id, pwd, name, phone, gender, status) values (?,?,?,?,?,1)
+		 * insertCustomer=insert into customer (user_id, age, email, regdate, coupon, howtocome) 
+		 * values (?, ?, ?, sysdate, null, null)
+		 */
 		try {
 			con = DbUtil.getConnection();
-			ps = con.prepareStatement(sql);
+			ps = con.prepareStatement(sql1);
 
 			ps.setString(1, customer.getId());
-			ps.setInt(2, customer.getAge());
-			ps.setString(3, customer.getEmail());
-			/*
-			 * ps.setDate(4, customer.getRegDate()); ps.setString(5, customer.getCoupon());
-			 * ps.setString(6, customer.getHowToCome());
-			 */
+			ps.setString(2, customer.getPwd());
+			ps.setString(3, customer.getName());
+			ps.setString(4, customer.getPhone());
+			ps.setString(5, customer.getGender());
+			
+			
+			if(customer.getId()!=null) {
+				ps1 = con.prepareStatement(sql2);
+				
+				ps1.setString(1, customer.getId());
+				ps1.setInt(2, customer.getAge());
+				ps1.setString(3, customer.getEmail());
+			}
 
 			result = ps.executeUpdate();
+			System.out.println(result);
+		
 		} finally {
 			DbUtil.dbClose(con, ps);
 		}
@@ -79,29 +95,36 @@ public class CustomerDAOImpl implements CustomerDAO {
 	}
 	
 	@Override
-	public boolean idCheck(String id) throws SQLException {
+	public int idCheck(String id) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		boolean flag = false;
+		int result = 0;
 		String sql = pro.getProperty("selectIdChk");
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, id);
 			rs = ps.executeQuery();
-
-			if (id.equals(rs)) {
-				flag = true;
-			} else {
-				flag = false;
+			
+			if (rs.next()) {
+				
+				result = 1;
 			}
-
+			
+			//admin 포함되어있는지 확인
+			String str = rs.getString(id);
+			str.toLowerCase();
+			boolean flag = str.contains("admin");
+			if(flag==true) {
+				result  = 1;
+			}
+			
 		} finally {
 			DbUtil.dbClose(con, ps, rs);
 		}
-
-		return flag;
+		
+		return result;
 	}
 
 	@Override

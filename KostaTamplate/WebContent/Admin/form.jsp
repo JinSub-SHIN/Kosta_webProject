@@ -4,7 +4,7 @@
 <html lang="en">
 
 <head>
-    <!-- Required meta tags-->
+    <!-- Required meta tags--> 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="au theme template">
     <meta name="author" content="Hau Nguyen">
@@ -14,25 +14,25 @@
     <title>JavaChip_Forms</title>
 
     <!-- Fontfaces CSS-->
-    <link href="css/font-face.css" rel="stylesheet" media="all">
-    <link href="vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
-    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
-    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="${path}/Admin/css/font-face.css" rel="stylesheet" media="all">
+    <link href="${path}/Admin/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="${path}/Admin/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="${path}/Admin/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
 
     <!-- Bootstrap CSS-->
-    <link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+    <link href="${path}/Admin/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
 
     <!-- Vendor CSS-->
-    <link href="vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
-    <link href="vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
-    <link href="vendor/wow/animate.css" rel="stylesheet" media="all">
-    <link href="vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
-    <link href="vendor/slick/slick.css" rel="stylesheet" media="all">
-    <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
-    <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+    <link href="${path}/Admin/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <link href="${path}/Admin/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+    <link href="${path}/Admin/vendor/wow/animate.css" rel="stylesheet" media="all">
+    <link href="${path}/Admin/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+    <link href="${path}/Admin/vendor/slick/slick.css" rel="stylesheet" media="all">
+    <link href="${path}/Admin/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="${path}/Admin/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
 
     <!-- Main CSS-->
-    <link href="css/theme.css" rel="stylesheet" media="all">
+    <link href="${path}/Admin/css/theme.css" rel="stylesheet" media="all">
 
 </head>
 
@@ -43,7 +43,7 @@
             <div class="header-mobile__bar">
                 <div class="container-fluid">
                     <div class="header-mobile-inner">
-                        <a class="logo" href="index.jsp">
+                        <a class="logo" href="${path}/Admin/index.jsp">
                             <img src="images/icon/logo.png" alt="CoolAdmin" />
                         </a>
                         <button class="hamburger hamburger--slider" type="button">
@@ -58,17 +58,17 @@
                 <div class="container-fluid">
                     <ul class="navbar-mobile__list list-unstyled">
                         <li class="has-sub">
-                            <a class="js-arrow" href="index.jsp">
+                            <a class="js-arrow" href="${path}/Admin/index.jsp">
                                 <i class="fas fa-tachometer-alt"></i>대시보드</a>
                             <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">                                
                             </ul>
                         </li>                     
                         <li>
-                            <a href="table.jsp">
+                            <a href="${path}/Admin/table.jsp">
                                 <i class="fas fa-table"></i>Tables</a>
                         </li>
                         <li>
-                            <a href="form.jsp">
+                            <a href="${path}/Admin/form.jsp">
                                 <i class="far fa-check-square"></i>Forms</a>
                         </li>
                     </ul>
@@ -80,7 +80,7 @@
         <!-- MENU SIDEBAR-->
         <aside class="menu-sidebar d-none d-lg-block">
             <div class="logo">
-                <a href="index.jsp">
+                <a href="${path}/Admin/index.jsp">
                     <img src="images/icon/logo.png" alt="Cool Admin" />
                 </a>
             </div>
@@ -88,17 +88,17 @@
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
                         <li class="has-sub">
-                            <a class="js-arrow" href="index.jsp">
+                            <a class="js-arrow" href="${path}/Admin/index.jsp">
                                 <i class="fas fa-tachometer-alt"></i>대시보드</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">                                
                             </ul>
                         </li>                        
                         <li>
-                            <a href="table.jsp">
+                            <a href="${path}/Admin/table.jsp">
                                 <i class="fas fa-table"></i>판매품목</a>
                         </li>
                         <li class="active">
-                            <a href="form.jsp">
+                            <a href="${path}/Admin/form.jsp">
                                 <i class="far fa-check-square"></i>고객관리</a>
                         </li>                        
                     </ul>
@@ -152,7 +152,7 @@
                                                 </div>
                                             </div>
                                             <div class="account-dropdown__footer">
-                                                <a href="../marga/index.jsp">
+                                                <a href="${path}/javaChip?command=logout">
                                                     <i class="zmdi zmdi-power"></i>Logout</a>
                                             </div>
                                         </div>

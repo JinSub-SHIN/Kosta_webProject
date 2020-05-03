@@ -10,9 +10,13 @@ public class Customer extends Person {
 	private Date regDate;
 	
 	public Customer() {}
+	
+	public Customer(String id) {
+		super(id);
+	}
 
-	public Customer(String id, String pwd, String phone, int status, String email) {
-		super(id, pwd, phone, status);
+	public Customer(String id, String pwd, String phone, String email) {
+		super(id, pwd, phone);
 		this.email = email;
 	}
 

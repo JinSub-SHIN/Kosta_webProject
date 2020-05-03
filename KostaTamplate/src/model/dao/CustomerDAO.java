@@ -11,7 +11,7 @@ public interface CustomerDAO {
 	int insert(Customer customer) throws SQLException;
 	
 	/**
-	 * 회원정보수정(비밀번호, 전화번호, 이메일, 상태(가입or탈퇴회원)
+	 * 회원정보수정(비밀번호, 전화번호, 이메일, 상태(가입or탈퇴회원))
 	 */
 	int update(Customer customer) throws SQLException;
 	
@@ -19,7 +19,7 @@ public interface CustomerDAO {
 	 * id 중복체크
 	 * @return : true이면 중복, false이면 중복아님
 	 */
-	boolean idCheck(String id) throws SQLException;
+	int idCheck(String id) throws SQLException;
 	
 	/**
 	 * 회원 전체검색

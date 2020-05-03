@@ -29,5 +29,6 @@ public class ModelAndView {
 
 	public void setViewName(String viewName) {
 		this.viewName = viewName;
-	}	
+	}
+
 }

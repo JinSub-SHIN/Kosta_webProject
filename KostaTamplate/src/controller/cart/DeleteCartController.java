@@ -16,20 +16,23 @@ public class DeleteCartController implements Controller {
 
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String id = request.getParameter("id");//user_id
-		//product객체를 리스트 타입으로 가져와야 한다 --> front에서 list형태로 저장해야 함
-		Product product = (Product) request.getAttribute("product");
+		String prodId = request.getParameter("prodId");
+		String customerId = (String) request.getSession().getAttribute("userId");
 		
-
-		//Product product = new Product(prodId);
-		//list.add(product);
+		List<String> prodIdList = new ArrayList<>();;
+		prodIdList.add(prodId);
 		
-		//CartService.delete(list);
-		//request.setAttribute("list", list);
+		//데이터 확인
+		for(String prod:prodIdList) {
+			System.out.println(prod);
+		}
+		System.out.println("userId : "+customerId);
+		CartService.delete(customerId, prodIdList);
+		
 		ModelAndView mv = new ModelAndView();
 		mv.setRedirect(true);
-		mv.setViewName("");
-		return null;
+		mv.setViewName("javaChip?command=selectCart");
+		return mv;
 	}
 
 }

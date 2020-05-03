@@ -12,24 +12,48 @@ public class Product {
 	private Category category;
 	private Date uploadDate;
 	private int validDate;
+	private int status;
+	
+	
+	private String uploadDateConvert;
 	
 	public Product() {}
 	
 	public Product(String id) {
 		this.id = id;
 	}
-	public Product(String id, String name, int price, String description, String level, Teacher teacher,
-			Category category, Date uploadDate, int validDate) {
+	
+	public Product(String id, String name, int price, String description) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.price = price;
 		this.description = description;
+	}
+	
+	public Product(String id, String name, int price, String description, int validDate) {
+		this(id, name, price, description);
+		this.description = description;
+		this.validDate = validDate;
+	}
+	
+	public Product(String id, String name, int price, String description, String level, Teacher teacher,
+			Category category, Date uploadDate, int validDate) {
+		this(id, name, price, description, validDate);
 		this.level = level;
 		this.teacher = teacher;
 		this.category = category;
 		this.uploadDate = uploadDate;
-		this.validDate = validDate;
+	}
+	
+	public Product(String id, String name, int price, String description, String level, Teacher teacher,
+			Category category, Date uploadDate, int validDate, int status) {
+		this(id, name, price, description, validDate);
+		this.level = level;
+		this.teacher = teacher;
+		this.category = category;
+		this.uploadDate = uploadDate;
+		this.status = status;
 	}
 
 	public int getValidDate() {
@@ -103,4 +127,22 @@ public class Product {
 	public void setUploadDate(Date uploadDate) {
 		this.uploadDate = uploadDate;
 	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public String getUploadDateConvert() {
+		return uploadDateConvert;
+	}
+
+	public void setUploadDateConvert(String uploadDateConvert) {
+		this.uploadDateConvert = uploadDateConvert;
+	}
+	
+	
 }

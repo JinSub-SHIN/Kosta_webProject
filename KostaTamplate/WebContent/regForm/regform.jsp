@@ -35,22 +35,28 @@
             <div class="card card-1"><img src="images/logo.png" style="text-align: center; height: 110px"><hr>                
                 <div class="card-body">
                     <h2 class="title">회원가입</h2>
-                    <form method="POST">
+                    
+                    <form method="POST" action="../javaChip?command=insertCus" 
+                    	name="userinfo" onsubmit="return checkValue()">
                         <div class="input-group">
-                            <input class="input--style-1" type="text" placeholder="아이디" name="id" style="width: 380px">
-                            <button class="btn btn--radius btn--green" type="submit">중복확인</button>                            
+                            <input class="input--style-1" type="text" placeholder="아이디" id="inserid" name="id" style="width: 380px"
+                            onkeydown="inputIdChk()">
+                            <font id="idcheck" size="2"></font>
+                            <button class="btn btn--radius btn--green" onclick="button_onclick()" type="button">중복확인</button> 
+                            <input type="hidden" id="idchk" value="N" />                          
                         </div>                        
                         <div class="input-group">
-                            <input class="input--style-1" type="text" placeholder="비밀번호" name="passward">
+                            <input class="input--style-1" type="password" id="password_1"  placeholder="비밀번호" name="pwd">
                         </div>
                        <div class="input-group">
-                            <input class="input--style-1" type="text" placeholder="비밀번호를 한번더 입력하세요" name="passward">
+                            <input class="input--style-1" type="password" id="password_2" placeholder="비밀번호를 한번더 입력하세요" name="repassward">
+                            <font id="check" size="2"></font>
                         </div>
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
-                                    <input class="input--style-1 " type="text" placeholder="성함" name="name">
-                                    
+                                    <input class="input--style-1 " type="text" placeholder="성함" name="name" id="namechk" 
+                                    onKeyup="this.value=this.value.replace(/[^(ㄱ-힣a-zA-Z)]/gi,'');"/>
                                 </div>
                             </div>
                             <div class="col-2">
@@ -70,19 +76,20 @@
 						<div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
-                                    <input class="input--style-1 " type="text" placeholder="전화번호 ( '-' 제외 입력)" name="phone">
-                                    
+                                    <input class="input--style-1 " type="text" placeholder="전화번호 ( '-' 제외 입력)" name="phone"
+                                    id="phonechk" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
+                                    <font id="phonecheck" size="2"></font>
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
-                                    <input class="input--style-1" type="text" placeholder="나이" name="age">
+                                    <input class="input--style-1" type="text" id="agechk" placeholder="나이" name="age" 
+                                    onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
+                                	<font id="agecheck" size="2"></font>
                                 </div>
                             </div>
                         </div>
                                 
-                            
-                        
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
@@ -91,7 +98,7 @@
                             </div>
                         </div>
                         <div class="p-t-20">
-                            <button class="btn btn--radius btn--green" type="submit">가입</button>                            
+                            <button class="btn btn--radius btn--green" type="submit" id="join" >가입</button>                            
                         </div>                        
                     </form>
                     
@@ -112,6 +119,136 @@
 
     <!-- Main JS-->
     <script src="js/global.js"></script>
+
+	<script type="text/javascript">
+	
+	function button_onclick(){
+		var over = $('#inserid').val();
+		
+		if(over == null || over == ""){
+			alert('아이디를 입력해주세요');
+			return false;
+		}
+		
+		$.ajax({
+			type : 'POST', data : "id="+over, dataType : 'text', 
+			url : '../idCheckServlet',		
+			success : function(Data){
+				var chkRst = Data;
+				 if(chkRst==0){
+					alert("등록가능합니다");
+					$("#idchk").val('Y');
+				}else{
+					alert("중복 아이디입니다");
+					$("#idchk").val('N');
+					
+				} 
+			}
+		});
+	}
+	
+	///////////////////////////////////////
+	
+	
+	function checkValue() {
+		var form = document.userinfo;
+		var string = /admin/gi;
+		
+		if(form.id.value.match(string)){
+			alert("단어");
+			return false;
+		}
+		
+		if(!form.id.value){
+			alert("아이디를 입력하세요");
+			return false;
+		}
+		
+		if(!form.pwd.value){
+			alert("비밀번호를 입력해주세요");
+			return false;
+		}
+		
+		if(form.pwd.value != form.repassward.value){
+			alert("비밀번호를 동일하게 입력해주세요");
+			return false;
+		}
+		
+		if(!form.name.value){
+			alert("이름을 입력해주세요");
+			return false;
+		}
+		
+		if(!form.gender.value){
+			alert("성별을 선택해주세요");
+			return false;
+		}
+		
+		if(!form.phone.value){
+			alert("전화번호를 입력해주세요");
+			return false;
+		}
+		
+	}
+	
+	$(function(){
+		
+		var join = document.getElementById('join');
+		var inid = $('#inserid').val();
+		var string = /admin/gi;
+		
+		$('#password_1').keyup(function(){
+			$('#check').html('');
+		});
+		
+		/* $('#inserid').keyup(function{
+			if(inid.match(string)){
+				$('#idcheck').html('단어<br>');
+				$('#idcheck').attr('color', '#f82a2aa3');
+			}
+		}); */
+		
+		$('#password_1').keyup(function(){
+			if($('#password_1').val().length<1 || $('#password_1').val().length>10){
+				$('#check').html('비밀번호는 1자리 이상 10자리 이하만 가능합니다<br>');
+				$('#check').attr('color', '#f82a2aa3');
+			}	
+		});
+		
+		$('#password_2').keyup(function(){
+			if($('#password_1').val() != $('#password_2').val()){
+				$('#check').html('비밀번호가 일치하지 않습니다<br>');
+				$('#check').attr('color', '#f82a2aa3');
+				
+			}else{
+				$('#check').html('비밀번호 일치<br>');
+				$('#check').attr('color', '#199894b3');
+			}
+		});
+		
+		$('#agechk').keyup(function(){
+			if(event.keyCode<48 || event.keyCode>57){
+				$('#agecheck').html('숫자만 입력해주세요<br>');
+				$('#agecheck').attr('color', '#f82a2aa3');
+			}
+		});
+		
+		$('#namechk').keyup(function(){
+			if(event.keyCode>=37 || event.keyCode<=40){
+				$('#namechk').html('문자만 입력해주세요<br>');
+				$('#namechk').attr('color', '#f82a2aa3');
+			}
+		});
+		
+		$('#phonechk').keyup(function(){
+			if(event.keyCode<48 || event.keyCode>57){
+				$('#phonecheck').html('숫자만 입력해주세요<br>');
+				$('#phonecheck').attr('color', '#f82a2aa3');
+			}
+		});
+		
+	});
+</script>
 
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 

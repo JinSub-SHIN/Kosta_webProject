@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  * : 요청을 받아 Model(Service-BusinessLogin, DAO)쪽으로 전달하고
  *   그 결과를 받아서 결과뷰로 이동하는 역할.
  */
-@WebServlet(urlPatterns="/elec", loadOnStartup=1)
+@WebServlet(urlPatterns="/javaChip", loadOnStartup=1)
 public class DispatcherServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -27,6 +27,7 @@ public class DispatcherServlet extends HttpServlet {
     		map = (Map<String, Controller>)application.getAttribute("map");
     	}
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+				
 		String key = request.getParameter("command");
 		System.out.println("key = " + key);
 		
@@ -34,17 +35,22 @@ public class DispatcherServlet extends HttpServlet {
 		
 		Controller controller = map.get(key);
 		
+		ModelAndView mv = null;
+		
 		try {
-			ModelAndView mv = controller.handleRequest(request, response);
-			if(mv.isRedirect()) {	//redirect방식으로 이동해
-				response.sendRedirect(mv.getViewName());
-			} else {	//forward방식
-				request.getRequestDispatcher(mv.getViewName()).forward(request, response);
-			}
-		}catch(Exception e) {
+			mv = controller.handleRequest(request, response);
+		} catch (Exception e) {			
 			e.printStackTrace();
 			request.setAttribute("errorMsg", e.getMessage());
 			request.getRequestDispatcher("errorView/error.jsp").forward(request, response);
+		}
+		
+		if(mv.isRedirect()) {
+			// redirect방식으로 이동한다.
+			response.sendRedirect(mv.getViewName());			
+		} else {
+			// forward 방식
+			request.getRequestDispatcher(mv.getViewName()).forward(request, response);
 		}
 	}
 

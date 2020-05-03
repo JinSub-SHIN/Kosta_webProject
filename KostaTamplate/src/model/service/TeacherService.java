@@ -39,4 +39,6 @@ public class TeacherService {
 		if (result == 0)
 			throw new SQLException("수정되지 않았습니다.");
 	}
+	
+	
 }

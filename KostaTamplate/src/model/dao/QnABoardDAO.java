@@ -24,7 +24,7 @@ public interface QnABoardDAO {
 	/**
 	 * 내글에 해당하는 글을 전부 조회한다.	
 	 */
-	List<QnABoard> selectByName(String id) throws SQLException;
+	List<QnABoard> selectById(String id) throws SQLException;
 	
 	/**
 	 *  전체글조회
@@ -35,4 +35,6 @@ public interface QnABoardDAO {
 	 * (내용 or 제목으로 조회) 키워드조회
 	 */
 	List<QnABoard> selectByKeyword(String keyField, String keyword) throws SQLException;
+
+	QnABoard selectByNo(int no) throws SQLException;
 }

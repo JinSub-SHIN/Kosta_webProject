@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,18 +10,18 @@
 
     <link href="https://fonts.googleapis.com/css?family=DM+Sans:300,400,700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="fonts/icomoon/style.css">
+    <link rel="stylesheet" href="${path}/marga/fonts/icomoon/style.css">
 
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/animate.min.css">
-    <link rel="stylesheet" href="css/jquery.fancybox.min.css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
-    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="${path}/marga/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${path}/marga/css/animate.min.css">
+    <link rel="stylesheet" href="${path}/marga/css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="${path}/marga/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="${path}/marga/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="${path}/marga/fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="${path}/marga/css/aos.css">
 
     <!-- MAIN CSS -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="${path}/marga/css/style.css">
 
 <style>
 html,body{
@@ -100,7 +101,7 @@ background-color: black;
 
 position: fixed;
 z-index: 1000;
-left: 1170px;
+left: 1300px;
 bottom: 20px;
 width: 300px;
 height: 200px;
@@ -110,7 +111,7 @@ height: 200px;
 .toast_close2 span {
 position: fixed;
 z-index: 3000;
-left: 1430px;
+left: 1560px;
 bottom: 180px;
 width: 40px;
 height: 40px;   
@@ -141,8 +142,7 @@ background-color: black;
 		
 		x2.onclick = function(){
 			
-			toast2.style.display = 'none';
-			
+			toast2.style.display = 'none';			
 		}
 		
 	
@@ -151,6 +151,7 @@ background-color: black;
 </script>
 
 </head>
+
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
     
@@ -163,19 +164,17 @@ background-color: black;
           </div>
         </div>
         <div class="site-mobile-menu-body"></div>
-      </div>
-
-
-
-      <header class="site-navbar site-navbar-target bg-white" role="banner">
-
-		
+      </div>      
+    
+       <header class="site-navbar site-navbar-target bg-white" role="banner">		
+		<c:choose>
+			<c:when test="${empty sessionScope.userId}">	<!-- 로그인하지 않았다면... -->	
         <div class="container">
           <div class="row align-items-center position-relative">          				
             <div class="col-lg-4">
               <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"> 
 			    <div class="container">
-			      <a class="navbar-brand" href="../marga/index.jsp">J A V A C H I P</a>
+			      <a class="navbar-brand" href="${path}/marga/index.jsp">J A V A C H I P</a>
 			      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 			        <span class="navbar-toggler-icon"></span>
 			      </button>
@@ -183,31 +182,64 @@ background-color: black;
 			        <ul class="navbar-nav ml-auto">
 			          <li class="nav-item active">
 			          </li>
-					  <li class="nav-item">
-					  <a class="nav-link" href="../Login/login.jsp"><span style="color: white; font-weight: bold">로그인</span></a>
-			          </li>
-			          <li class="nav-item">
-			            <a class="nav-link" href="../marga/index.jsp"><span style="color: white; font-weight: bold">로그아웃</span></a>
+					  <li class="nav-item" id="login">
+					  <a class="nav-link" href="${path}/Login/login.jsp"><span style="color: white; font-weight: bold">로그인</span></a>
 			          </li>
 			         <li class="nav-item">
-			           <a class="nav-link" onclick="window.open('../regForm/regform.jsp', '_blank', 'width=600, height=400');"><span style="color: white; font-weight: bold">회원가입</span></a>
+			           <a class="nav-link" onclick="window.open('${path}/regForm/regform.jsp', '_blank', 'width=600, height=400');"><span style="color: white; font-weight: bold">회원가입</span></a>
 			         </li>
 			          <li class="nav-item">
-			            <a class="nav-link" href="../mypage/mypage.jsp"><span style="color: white; font-weight: bold">마이페이지/내강의실</span></a>
+			            <a class="nav-link" href="${path}/javaChip?command=selectProd"><span style="color: white; font-weight: bold">강의목록</span></a>
 			          </li>
 			          <li class="nav-item">
-						<a class="nav-link" href="../mycart/newmycart.jsp"><span style="color: white; font-weight: bold">장바구니</span></a>
-					  </li>
-			          <li class="nav-item">
-			            <a class="nav-link" href="../classlist/cart.jsp"><span style="color: white; font-weight: bold">강의목록</span></a>
-			          </li>
-			          <li class="nav-item">
-			            <a class="nav-link" href="../community/community.jsp"><span style="color: white; font-weight: bold">커뮤니티</span></a>
+			            <a class="nav-link" href="${path}/community/community.jsp"><span style="color: white; font-weight: bold">커뮤니티</span></a>
 			          </li>
 			        </ul>
 			      </div>
 			    </div>
 			  </nav>
+			</div>
+    	 </div>
+       </div> 
+			</c:when>
+			<c:otherwise> <!-- 로그인하였다면.. -->
+	  <div class="container">
+          <div class="row align-items-center position-relative">          				
+            <div class="col-lg-4">
+              <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"> 
+			    <div class="container">
+			      <a class="navbar-brand" href="${path}/marga/index.jsp">J A V A C H I P</a>
+			      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+			        <span class="navbar-toggler-icon"></span>
+			      </button>
+			      <div class="collapse navbar-collapse" id="navbarResponsive">
+			        <ul class="navbar-nav ml-auto">
+			          <li class="nav-item active">
+			          </li>
+			          <li class="nav-item" id="logout">
+			            <a class="nav-link" href="${path}/javaChip?command=logout"><span style="color: white; font-weight: bold">로그아웃</span></a>
+			          </li>
+			          <li class="nav-item">
+			            <a class="nav-link" href="${path}/javaChip?command=selectByCusIdOrderLine"><span style="color: white; font-weight: bold">마이페이지/내강의실</span></a>
+			          </li>
+			          <li class="nav-item">
+						<a class="nav-link" href="${path}/javaChip?command=selectCart&id=${userId}"><span style="color: white; font-weight: bold">장바구니</span></a>
+					  </li>
+			          <li class="nav-item">
+			            <a class="nav-link" href="${path}/javaChip?command=selectProd"><span style="color: white; font-weight: bold">강의목록</span></a>
+			          </li>
+			          <li class="nav-item">
+			            <a class="nav-link" href="${path}/community/community.jsp"><span style="color: white; font-weight: bold">커뮤니티</span></a>
+			          </li>
+			        </ul>
+			      </div>
+			    </div>
+			  </nav>
+			</div>
+    	 </div>
+       </div>
+			</c:otherwise>
+		</c:choose>	  
 			  
 			  <!-- 토스트 배너부분 -->
                 
@@ -220,15 +252,13 @@ background-color: black;
               <div class="toast_ban" id="toast2">
               	<div class="toast_in">
               	<a href="javascript:;" class="toast_close2" id="x2"><span>X</span></a>
-              	<a href="../community/evaluation.jsp"><img src="images/tost2.jpg" class='tost2'></a>
+              	<a href="${path}/community/evaluation.jsp"><img src="images/tost2.jpg" class='tost2'></a>
               	</div>
               </div> 
               
               <!-- 토스트 배너 끝 -->
                        
-            </div>
-    	 </div>
-        </div>
+
       </header>
     <div class="owl-carousel-wrapper">
       <div class="box-92819">
@@ -236,18 +266,18 @@ background-color: black;
           <div>
             <h1 class="text-uppercase mb-3">자칭 1등 프로그래밍 인터넷 강의</h1>
             <p class="mb-5"> 'KOSTA' 출신 명문강사들 총 집합!! </p>
-            <p class="mb-0"><a href="../classlist/cart.jsp" class="btn btn-primary rounded-0">바로신청하기!</a></p>
+            <p class="mb-0"><a href="${path}/classlist/cart.jsp" class="btn btn-primary rounded-0">바로신청하기!</a></p>
           </div>
           <div>
             <h2 class="text-uppercase mb-3">여러분들의 꿈을 자바칩에서 키우세요!</h2>
             <p class="mb-5"> 자바칩과 함께라면 어려울것이 없어요!</p>
-            <p class="mb-0"><a href="../classlist/cart.jsp" class="btn btn-primary rounded-0">바로신청하기!</a></p>
+            <p class="mb-0"><a href="${path}/classlist/cart.jsp" class="btn btn-primary rounded-0">바로신청하기!</a></p>
           </div>
 
           <div>
             <h2 class="text-uppercase mb-3">자랑스러운 취업률</h2> <h1>"100%" !</h1>
             <p class="mb-5">역대 최대 취업률을 경험하시려면 바로 신청하세요!</p>            
-            <p class="mb-0"><a href="../classlist/cart.jsp" class="btn btn-primary rounded-0">바로신청하기!</a></p>
+            <p class="mb-0"><a href="${path}/classlist/cart.jsp" class="btn btn-primary rounded-0">바로신청하기!</a></p>
           </div>
 
         </div>
@@ -286,24 +316,12 @@ background-color: black;
           </div>
         </div>
       </div>
-    </div>
-    
-    
-	
-    
-    
-
-
+    </div>    
     <div class="site-section">
       <div class="container">
-       
-        
-        
         <div class="row align-items-stretch">
           <div class="col-lg-3 col-md-6 mb-5">
             <div class="post-entry-1 h-100">
-              
-           
             </div>
           </div>
           <div class="col-lg-3 col-md-6 mb-5">
@@ -315,20 +333,15 @@ background-color: black;
           <div class="col-lg-3 col-md-6 mb-5">
             <div class="post-entry-1 h-100">
               
-            
             </div>
           </div>
           <div class="col-lg-3 col-md-6 mb-5">
             <div class="post-entry-1 h-100">
-              
-              
             </div>
           </div>
         </div>
       </div>
     </div>
-    
-
     
    <!-- Footer -->
   <footer class="py-5 bg-dark">
@@ -355,5 +368,4 @@ background-color: black;
 
 
   </body>
-
 </html>

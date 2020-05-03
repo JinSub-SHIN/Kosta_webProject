@@ -10,6 +10,7 @@ import model.dao.PersonDAO;
 import model.dao.impl.CustomerDAOImpl;
 import model.dao.impl.PersonDAOImpl;
 import model.domain.Customer;
+import model.domain.Person;
 
 public class CustomerService {
 	private static CustomerDAO customerDAO = new CustomerDAOImpl();
@@ -27,12 +28,19 @@ public class CustomerService {
 	 * CustomerDAOImpl의 레코드 삽입하는 메소드 호출
 	 */
 	public static void insert(Customer customer) throws Exception {
-		if (customerDAO.idCheck(customer.getId())) {
-			throw new DuplicatedException("사용하실 수 없는 아이디입니다.");
-		}
+		
 		int result = customerDAO.insert(customer);
 		if (result == 0)
 			throw new AddException("등록되지 않았습니다.");
+	}
+	
+	/**
+	 * CustomerDAOImpl의 id 체크하는 메소드호출
+	 */
+	public static int idCheck(String id) throws Exception{
+		int result = customerDAO.idCheck(id);
+		
+		return result;
 	}
 
 	/**
@@ -54,10 +62,42 @@ public class CustomerService {
 		int result = personDAO.update(customer);
 		if (result == 0)
 			throw new SQLException("수정되지 않았습니다.");
-		
+
 		result = customerDAO.update(customer);
 		if (result == 0)
 			throw new SQLException("수정되지 않았습니다.");
 
+	}
+
+	/**
+	 * 회원탈퇴
+	 */
+	public static void withdrawal(String id) throws SQLException {
+		int result = personDAO.updateStatus(id);
+		if (result == 0)
+			throw new SQLException("수정되지 않았습니다.");
+	}
+
+	/**
+	 * 이름과 전화번호로 id찾기
+	 */
+	public static String findId(String name, String phone) throws SQLException {
+		String id = personDAO.selectByNameAndPhone(name, phone);
+		if (id == null)
+			throw new SQLException("해당 정보가 없습니다");
+
+		return id;
+	}
+
+	/**
+	 * id 이름 전화번호로 패스워드 찾기
+	 */
+	public static String findPwd(String id, String name, String phone) throws SQLException {
+		String pwd = personDAO.selectByIdAndNameAndPhone(id, name, phone);
+
+		if (pwd == null) {
+			throw new SQLException("해당 정보가 없습니다");
+		}
+		return pwd;
 	}
 }

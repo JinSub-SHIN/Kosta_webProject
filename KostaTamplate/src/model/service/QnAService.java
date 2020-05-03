@@ -8,28 +8,28 @@ import model.dao.impl.QnABoardDAOImpl;
 import model.domain.QnABoard;
 
 public class QnAService {
-	static QnABoardDAO dao = new QnABoardDAOImpl();
+	static QnABoardDAO qaDAO = new QnABoardDAOImpl();
 	
 	/**
 	 * 게시글 등록
 	 */
-//	public static int insert(String subject, String title, String prodId, String id) throws SQLException{
-//		return dao.insert(subject, title, prodId, id);
-//	}
+	public static int insert(QnABoard qaBoard) throws SQLException{
+		return qaDAO.insert(qaBoard);
+	}
 	
 	/**
 	 * 게시글 삭제
 	 * @param 게시글 번호
 	 */
 	public static int delete(int qaBoardNo) throws SQLException{
-		return dao.delete(qaBoardNo);
+		return qaDAO.delete(qaBoardNo);
 	}
 	
 	/**
 	 * 게시글 내용 수정
 	 */
 	public static int update(int qaBoardNo, String content) throws SQLException{
-		return dao.update(qaBoardNo, content);
+		return qaDAO.update(qaBoardNo, content);
 		
 	}
 		
@@ -38,7 +38,7 @@ public class QnAService {
 	 * @throws SQLException 
 	 */
 	public static List<QnABoard> selectAll() throws SQLException {
-		return dao.selectAll();
+		return qaDAO.selectAll();
 		
 	}
 	
@@ -47,8 +47,16 @@ public class QnAService {
 	 * @param id
 	 * @throws SQLException 
 	 */
-	public static List<QnABoard> selectById(String customerId) throws SQLException {
-		return dao.selectByName(customerId);
+	public static List<QnABoard> selectById(String id) throws SQLException {
+		return qaDAO.selectById(id);
 		
+	}
+	
+	public static List<QnABoard> selectByKeyword(String keyField, String keyword) throws SQLException {
+		return qaDAO.selectByKeyword(keyField, keyword);
+	}
+
+	public static QnABoard selectByNo(int no) throws SQLException {
+		return qaDAO.selectByNo(no);	
 	}
 }

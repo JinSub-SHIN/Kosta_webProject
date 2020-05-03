@@ -3,7 +3,7 @@ package model.domain;
 import java.util.Date;
 
 public class EstimateBoard {
-	private int sequence;
+	private int estimateNo;
 	private String subject;
 	private Customer customer;
 	private Product product;
@@ -11,24 +11,35 @@ public class EstimateBoard {
 	private int grade;
 
 	public EstimateBoard() {}
-
-	public EstimateBoard(int sequence, String subject, Customer customer, Product product, Date writeDay,
-			int grade) {
+	
+	public EstimateBoard(int estimateNo, String subject, int grade) {
 		super();
-		this.sequence = sequence;
+		this.estimateNo = estimateNo;
+		this.subject = subject;
+		this.grade = grade;
+	}
+
+	public EstimateBoard(String subject, Customer customer, Product product,int grade) {
+		super();
 		this.subject = subject;
 		this.customer = customer;
-		this.writeDay = writeDay;
 		this.product = product;
 		this.grade = grade;
 	}
 
-	public int getSequence() {
-		return sequence;
+	public EstimateBoard(int estimateNo, String subject, Customer customer, Product product, Date writeDay,
+			int grade) {
+		this(subject, customer, product, grade);
+		this.estimateNo = estimateNo;
+		this.writeDay = writeDay;
 	}
 
-	public void setSequence(int sequence) {
-		this.sequence = sequence;
+	public int getEstimateNo() {
+		return estimateNo;
+	}
+
+	public void setEstimateNo(int estimateNo) {
+		this.estimateNo = estimateNo;
 	}
 
 	public String getSubject() {

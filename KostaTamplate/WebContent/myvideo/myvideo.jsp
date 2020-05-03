@@ -11,23 +11,25 @@
   <title>JavaChip-myVideo</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="${path}/myvideo/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="css/blog-post.css" rel="stylesheet">
+  <link href="${path}/myvideo/css/blog-post.css" rel="stylesheet">
 
 </head>
 
 <body>
 
   <!-- Navigation -->
-       <header class="site-navbar site-navbar-target bg-white" role="banner">
+ <header class="site-navbar site-navbar-target bg-white" role="banner">		
+		<c:choose>
+			<c:when test="${empty sessionScope.userId}">	<!-- 로그인하지 않았다면... -->	
         <div class="container">
           <div class="row align-items-center position-relative">          				
             <div class="col-lg-4">
               <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"> 
 			    <div class="container">
-			      <a class="navbar-brand" href="../marga/index.jsp">J A V A C H I P</a>
+			      <a class="navbar-brand" href="${path}/marga/index.jsp">J A V A C H I P</a>
 			      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 			        <span class="navbar-toggler-icon"></span>
 			      </button>
@@ -35,35 +37,65 @@
 			        <ul class="navbar-nav ml-auto">
 			          <li class="nav-item active">
 			          </li>
-					  <li class="nav-item">
-					  <a class="nav-link" href="../Login/login.jsp"><span style="color: white; font-weight: bold">로그인</span></a>
-			          </li>
-			          <li class="nav-item">
-			            <a class="nav-link" href="../marga/index.jsp"><span style="color: white; font-weight: bold">로그아웃</span></a>
+					  <li class="nav-item" id="login">
+					  <a class="nav-link" href="${path}/Login/login.jsp"><span style="color: white; font-weight: bold">로그인</span></a>
 			          </li>
 			         <li class="nav-item">
-			           <a class="nav-link" onclick="window.open('../regForm/regform.jsp', '_blank', 'width=600, height=400');"><span style="color: white; font-weight: bold">회원가입</span></a>
+			           <a class="nav-link" onclick="window.open('${path}/regForm/regform.jsp', '_blank', 'width=600, height=400');"><span style="color: white; font-weight: bold">회원가입</span></a>
 			         </li>
 			          <li class="nav-item">
-			            <a class="nav-link" href="../mypage/mypage.jsp"><span style="color: white; font-weight: bold">마이페이지/내강의실</span></a>
+			            <a class="nav-link" href="${path}/javaChip?command=selectProd"><span style="color: white; font-weight: bold">강의목록</span></a>
 			          </li>
 			          <li class="nav-item">
-						<a class="nav-link" href="../mycart/newmycart.jsp"><span style="color: white; font-weight: bold">장바구니</span></a>
-					  </li>
-			          <li class="nav-item">
-			            <a class="nav-link" href="../classlist/cart.jsp"><span style="color: white; font-weight: bold">강의목록</span></a>
-			          </li>
-			          <li class="nav-item">
-			            <a class="nav-link" href="../community/community.jsp"><span style="color: white; font-weight: bold">커뮤니티</span></a>
+			            <a class="nav-link" href="${path}/community/community.jsp"><span style="color: white; font-weight: bold">커뮤니티</span></a>
 			          </li>
 			        </ul>
 			      </div>
 			    </div>
-			  </nav>                      
-            </div>
+			  </nav>
+			</div>
     	 </div>
-        </div>
-      </header>
+       </div> 
+			</c:when>
+			<c:otherwise> <!-- 로그인하였다면.. -->
+	  <div class="container">
+          <div class="row align-items-center position-relative">          				
+            <div class="col-lg-4">
+              <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"> 
+			    <div class="container">
+			      <a class="navbar-brand" href="${path}/marga/index.jsp">J A V A C H I P</a>
+			      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+			        <span class="navbar-toggler-icon"></span>
+			      </button>
+			      <div class="collapse navbar-collapse" id="navbarResponsive">
+			        <ul class="navbar-nav ml-auto">
+			          <li class="nav-item active">
+			          </li>
+			          <li class="nav-item" id="logout">
+			            <a class="nav-link" href="${path}/javaChip?command=logout"><span style="color: white; font-weight: bold">로그아웃</span></a>
+			          </li>
+			          <li class="nav-item">
+			            <a class="nav-link" href="${path}/mypage/mypage.jsp"><span style="color: white; font-weight: bold">마이페이지/내강의실</span></a>
+			          </li>
+			          <li class="nav-item">
+						<a class="nav-link" href="${path}/mycart/newmycart.jsp"><span style="color: white; font-weight: bold">장바구니</span></a>
+					  </li>
+			          <li class="nav-item">
+			            <a class="nav-link" href="${path}/javaChip?command=selectProd"><span style="color: white; font-weight: bold">강의목록</span></a>
+			          </li>
+			          <li class="nav-item">
+			            <a class="nav-link" href="${path}/community/community.jsp"><span style="color: white; font-weight: bold">커뮤니티</span></a>
+			          </li>
+			        </ul>
+			      </div>
+			    </div>
+			  </nav>
+			</div>
+    	 </div>
+       </div>
+			</c:otherwise>
+		</c:choose>	  
+	</header>
 
   <!-- Page Content -->
   <div class="container">
@@ -132,19 +164,19 @@
               <div class="col-lg-6">
                 <ul class="list-unstyled mb-0">
                   <li>
-                    <a href="../mychapter/mychapter.jsp">리스트로 이동</a>
+                    <a href="${path}/mychapter/mychapter.jsp">리스트로 이동</a>
                   </li>
                   <li>
-                    <a href="myvideo.jsp">1강 변수선언</a>
+                    <a href="${path}/myvideo/myvideo.jsp">1강 변수선언</a>
                   </li>
                   <li>
-                    <a href="myvideo.jsp">2강 반복문</a>
+                    <a href="${path}/myvideo/myvideo.jsp">2강 반복문</a>
                   </li>
                   <li>
-                    <a href="myvideo.jsp">3강 제어문</a>
+                    <a href="${path}/myvideo/myvideo.jsp">3강 제어문</a>
                   </li>
                   <li>
-                    <a href="myvideo.jsp">4강 람다식</a>
+                    <a href="${path}/myvideo/myvideo.jsp">4강 람다식</a>
                   </li>
                 </ul>
               </div>

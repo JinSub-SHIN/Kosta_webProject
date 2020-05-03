@@ -13,53 +13,71 @@ import java.util.Properties;
 import model.dao.CartDAO;
 import model.domain.Cart;
 import model.domain.Product;
+import model.domain.Teacher;
 import util.DbUtil;
 
 public class CartDAOImpl implements CartDAO {
-	
+
 	Properties pro = new Properties();
-	
+
 	public CartDAOImpl() {
 		InputStream input = getClass().getClassLoader().getResourceAsStream("model/dao/sqlQuery.properties");
 		try {
 			pro.load(input);
-		}catch(IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	
-	/**
-	 * 카트 목록 조회
-	 * @param userId
-	 */
 	@Override
-	public List<Product> selectAll(String customerId) throws SQLException {
+	public List<Cart> selectAll(String customerId) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		List<Product> list = new ArrayList<Product>();
+		List<Cart> list = new ArrayList<Cart>();
 		String sql = pro.getProperty("selectCart");
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, customerId);
 			rs = ps.executeQuery();
-			while(rs.next()) {
-				//가져오는 컬럼 순서 확인필요
+			while (rs.next()) {
+				Product product = new Product(rs.getString("prod_id"), rs.getString("prod_name"), rs.getInt("prod_price"), rs.getString("description"));
 				
-				//Customer customer = new Customer();
-				//Cart cart = new Cart(cartNo, customer, product);
+				Teacher teacher = new Teacher();
+				teacher.setName(rs.getString("name"));
 				
-			
-				Product product = new Product();//getter로 생성해야 함
-				list.add(product);
+				product.setTeacher(teacher);
+				
+				Cart cart = new Cart();
+				cart.setCartNo(rs.getInt("cart_no"));
+				cart.setProduct(product);
+				
+				list.add(cart);
 			}
-		}finally {
+		} finally {
 			DbUtil.dbClose(con, ps, rs);
 		}
-		
+
 		return list;
+	}
+
+	@Override
+	public int checkCart(String customerId, String prodId) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		int result = 0;
+		String sql = pro.getProperty("checkCart");
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, customerId);
+			ps.setString(2, prodId);
+			result = ps.executeUpdate();
+		} finally {
+			DbUtil.dbClose(con, ps);
+		}
+		return result;
 	}
 
 	@Override
@@ -74,70 +92,45 @@ public class CartDAOImpl implements CartDAO {
 			ps.setString(1, customerId);
 			ps.setString(2, prodId);
 			result = ps.executeUpdate();
-		}finally {
+		} finally {
 			DbUtil.dbClose(con, ps);
 		}
 		return result;
 	}
 	
-	/**
-	 * 해당 user의 장바구니 목록 전체 삭제
-	 */
 	@Override
-	public int deleteAll(String customerId) throws SQLException {
+	public int delete(String customerId, String prodId) throws SQLException {
+		System.out.println("daoImpl called..");
 		Connection con = null;
-		PreparedStatement ps =null;
-		int result =0;
-		String sql=pro.getProperty("deleteAllCart");
+		PreparedStatement ps = null;
+		int result = 0;
+		String sql = pro.getProperty("deleteCart");
+
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, customerId);
-			result = ps.executeUpdate();
-		}finally {
-			DbUtil.dbClose(con, ps);
-		}
-		return result;
-	}
-	
-	/**
-	 * 
-	 */
-	@Override
-	public int deleteById(String customerId, String prodId) throws SQLException {
-		Connection con=null;
-		PreparedStatement ps=null;
-		int result=0;
-		String sql=pro.getProperty("deleteCart");
-		
-		try {
-			con=DbUtil.getConnection();
-			ps=con.prepareStatement(sql);
-			ps.setString(1, customerId);
 			ps.setString(2, prodId);
-			result=ps.executeUpdate(sql);
-		}finally {
+			result = ps.executeUpdate();
+		} finally {
 			DbUtil.dbClose(con, ps);
 		}
+		System.out.println(result);
 		return result;
 	}
 
 	@Override
-	public int delete(String customerId, List<Product> list) throws SQLException {
-		Connection con=null;
-		PreparedStatement ps=null;
-		int result=0;
-		String sql=pro.getProperty("deleteCart");
+	public int deleteAll(String customerId) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		int result = 0;
+		String sql = pro.getProperty("deleteAllCart");
 		try {
-			for(Product p:list) {
-				String prodId = p.getId();
-				con=DbUtil.getConnection();
-				ps=con.prepareStatement(sql);
-				ps.setString(1, customerId);
-				ps.setString(2, prodId);
-				result=ps.executeUpdate(sql);
-			}//end for
-		}finally {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, customerId);
+			result = ps.executeUpdate(sql);
+		} finally {
 			DbUtil.dbClose(con, ps);
 		}
 		return result;
