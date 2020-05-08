@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import exception.NotFoundException;
+import exception.NotLoginExeception;
+
 /**
  * View의 모든 요청을 중앙집중적으로 관리하기 위한
  * FrontController의 역할이다.
@@ -39,6 +42,14 @@ public class DispatcherServlet extends HttpServlet {
 		
 		try {
 			mv = controller.handleRequest(request, response);
+		}catch (NotLoginExeception e) {
+			e.printStackTrace();
+			request.setAttribute("errorMsg", e.getMessage());
+			request.getRequestDispatcher("Login/login.jsp").forward(request, response);
+		}catch (NotFoundException e) {
+			e.printStackTrace();
+			request.setAttribute("errorMsg", e.getMessage());
+			request.getRequestDispatcher("successView/noData.jsp").forward(request, response);
 		} catch (Exception e) {			
 			e.printStackTrace();
 			request.setAttribute("errorMsg", e.getMessage());

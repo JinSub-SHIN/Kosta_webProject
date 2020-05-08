@@ -20,7 +20,8 @@ public class IdCheckServlet extends HttpServlet {
        
     @Override
     	protected void service(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
-         String id = request.getParameter("id");
+        System.out.println("idcheckº≠∫Ì∏¥»£√‚µ ..."); 
+    	String id = request.getParameter("id");
 		
 			try {
 			     int result = CustomerService.idCheck(id);

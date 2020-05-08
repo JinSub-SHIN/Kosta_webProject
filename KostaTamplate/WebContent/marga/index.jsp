@@ -192,7 +192,7 @@ background-color: black;
 			            <a class="nav-link" href="${path}/javaChip?command=selectProd"><span style="color: white; font-weight: bold">강의목록</span></a>
 			          </li>
 			          <li class="nav-item">
-			            <a class="nav-link" href="${path}/community/community.jsp"><span style="color: white; font-weight: bold">커뮤니티</span></a>
+			            <a class="nav-link" href="${path}/javaChip?command=community"><span style="color: white; font-weight: bold">커뮤니티</span></a>
 			          </li>
 			        </ul>
 			      </div>
@@ -219,12 +219,21 @@ background-color: black;
 			          <li class="nav-item" id="logout">
 			            <a class="nav-link" href="${path}/javaChip?command=logout"><span style="color: white; font-weight: bold">로그아웃</span></a>
 			          </li>
+			          <c:if test="${sessionScope.userStatus==1}">
 			          <li class="nav-item">
 			            <a class="nav-link" href="${path}/javaChip?command=selectByCusIdOrderLine"><span style="color: white; font-weight: bold">마이페이지/내강의실</span></a>
 			          </li>
+			          </c:if>
+			          <c:if test="${sessionScope.userStatus==2}">
+			          <li class="nav-item">
+			            <a class="nav-link" href="${path}/javaChip?command=Tgangmok"><span style="color: white; font-weight: bold">마이페이지</span></a>
+			          </li>
+			          </c:if>
+			          <c:if test="${sessionScope.userStatus==1}"><!-- customer인 경우에만 장바구니 보이기 -->
 			          <li class="nav-item">
 						<a class="nav-link" href="${path}/javaChip?command=selectCart&id=${userId}"><span style="color: white; font-weight: bold">장바구니</span></a>
 					  </li>
+					  </c:if>
 			          <li class="nav-item">
 			            <a class="nav-link" href="${path}/javaChip?command=selectProd"><span style="color: white; font-weight: bold">강의목록</span></a>
 			          </li>
@@ -246,13 +255,13 @@ background-color: black;
               <div class="toast_ban" id="toast1">
               	<div class="toast_in">        
               	<a href="javascript:;" class="toast_close" id="x1"><span>X</span></a>
-             	<a href="192.168.0.168/notebookShop/index.jsp"><img src="images/tost.jpg" class='tost'></a>    
+             	<a href="http://192.168.0.104:8888/notebookShop"><img src="images/ganggo.jpg" class='tost'></a>    
               	</div> 
-              </div>
+              </div>   
               <div class="toast_ban" id="toast2">
               	<div class="toast_in">
               	<a href="javascript:;" class="toast_close2" id="x2"><span>X</span></a>
-              	<a href="${path}/community/evaluation.jsp"><img src="images/tost2.jpg" class='tost2'></a>
+              	<a href="${path}/javaChip?command=selectAllEst"><img src="images/tost2.jpg" class='tost2'></a>
               	</div>
               </div> 
               
@@ -266,18 +275,18 @@ background-color: black;
           <div>
             <h1 class="text-uppercase mb-3">자칭 1등 프로그래밍 인터넷 강의</h1>
             <p class="mb-5"> 'KOSTA' 출신 명문강사들 총 집합!! </p>
-            <p class="mb-0"><a href="${path}/classlist/cart.jsp" class="btn btn-primary rounded-0">바로신청하기!</a></p>
+            <p class="mb-0"><a href="${path}/javaChip?command=selectProd" class="btn btn-primary rounded-0">바로신청하기!</a></p>
           </div>
           <div>
             <h2 class="text-uppercase mb-3">여러분들의 꿈을 자바칩에서 키우세요!</h2>
             <p class="mb-5"> 자바칩과 함께라면 어려울것이 없어요!</p>
-            <p class="mb-0"><a href="${path}/classlist/cart.jsp" class="btn btn-primary rounded-0">바로신청하기!</a></p>
+            <p class="mb-0"><a href="${path}/javaChip?command=selectProd" class="btn btn-primary rounded-0">바로신청하기!</a></p>
           </div>
 
           <div>
             <h2 class="text-uppercase mb-3">자랑스러운 취업률</h2> <h1>"100%" !</h1>
             <p class="mb-5">역대 최대 취업률을 경험하시려면 바로 신청하세요!</p>            
-            <p class="mb-0"><a href="${path}/classlist/cart.jsp" class="btn btn-primary rounded-0">바로신청하기!</a></p>
+            <p class="mb-0"><a href="${path}/javaChip?command=selectProd" class="btn btn-primary rounded-0">바로신청하기!</a></p>
           </div>
 
         </div>
@@ -289,9 +298,8 @@ background-color: black;
         
       </div>
     </div>
-
     
-    <div class="site-section">
+<!--<div class="site-section">
       <div class="container">
         <div class="row align-items-stretch">
         <img src="images/image_99.jpg" height="900px">
@@ -341,7 +349,7 @@ background-color: black;
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     
    <!-- Footer -->
   <footer class="py-5 bg-dark">

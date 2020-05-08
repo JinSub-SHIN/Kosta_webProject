@@ -42,6 +42,8 @@ public class QnABoardDAOImpl implements QnABoardDAO {
 			ps.setString(2, qaBoard.getTitle());
 			ps.setString(3, qaBoard.getProduct().getId());
 			ps.setString(4, qaBoard.getCustomer().getId());
+			ps.setInt(5, qaBoard.getStatus());
+			ps.setInt(6, qaBoard.getPwd());
 			result = ps.executeUpdate();
 		} finally {
 			DbUtil.dbClose(con, ps);
@@ -107,7 +109,7 @@ public class QnABoardDAOImpl implements QnABoardDAO {
 				qaBoard.setQaBoardNo(rs.getInt("parentnumber"));
 
 				QnABoard qnABoard = new QnABoard(rs.getInt("sequence"), rs.getString("subject"), rs.getDate("writeday"),
-						customer, product, rs.getString("title"), qaBoard);
+						customer, product, rs.getString("title"), qaBoard, rs.getInt("status"), rs.getInt("password"), rs.getInt("viewcount"));
 
 				list.add(qnABoard);
 			}
@@ -139,7 +141,7 @@ public class QnABoardDAOImpl implements QnABoardDAO {
 				qaBoard.setQaBoardNo(rs.getInt("parentnumber"));
 
 				QnABoard qnABoard = new QnABoard(rs.getInt("sequence"), rs.getString("subject"), rs.getDate("writeday"),
-						customer, product, rs.getString("title"), qaBoard);
+						customer, product, rs.getString("title"), qaBoard, rs.getInt("status"), rs.getInt("password"), rs.getInt("viewcount"));
 
 				list.add(qnABoard);
 			}
@@ -178,7 +180,7 @@ public class QnABoardDAOImpl implements QnABoardDAO {
 				qaBoard.setQaBoardNo(rs.getInt("parentnumber"));
 
 				QnABoard qnABoard = new QnABoard(rs.getInt("sequence"), rs.getString("subject"), rs.getDate("writeday"),
-						customer, product, rs.getString("title"), qaBoard);
+						customer, product, rs.getString("title"), qaBoard, rs.getInt("status"), rs.getInt("password"), rs.getInt("viewcount"));
 
 				list.add(qnABoard);
 			}
@@ -210,12 +212,50 @@ public class QnABoardDAOImpl implements QnABoardDAO {
 				QnABoard qna = new QnABoard();
 				qnaBoard 
 				= new QnABoard(rs.getInt("sequence"), rs.getString("subject"), rs.getDate("writeday")
-						, customer, product, rs.getString("title"), qna);
+						, customer, product, rs.getString("title"), qna, rs.getInt("status"), rs.getInt("password"), rs.getInt("viewcount"));
 			}
 		} finally {
 			DbUtil.dbClose(con, ps, rs);
 		}
 		return qnaBoard;
+	}
+
+	@Override
+	public int addViewCount(int no) throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		String sql=pro.getProperty("addViewCount");
+		int result=0;
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, no);
+			result = ps.executeUpdate();
+		}finally {
+			DbUtil.dbClose(con, ps);
+		}
+		return result;
+	}
+
+	@Override
+	public int insertAnswer(String subject, String title, String prodId, int parentNumber, String id) throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		String sql=pro.getProperty("insertAnswer");
+		int result=0;
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, subject);
+			ps.setString(2, "[´äº¯]"+title);
+			ps.setString(3, prodId);
+			ps.setInt(4, parentNumber);
+			ps.setString(5, id);
+			result = ps.executeUpdate();
+		}finally {
+			DbUtil.dbClose(con, ps);
+		}
+		return result;
 	}
 
 }

@@ -98,7 +98,7 @@
                             </div>
                         </div>
                         <div class="p-t-20">
-                            <button class="btn btn--radius btn--green" type="submit" id="join" >가입</button>                            
+                            <button class="btn btn--radius btn--green" type="submit" id="join">가입</button>                            
                         </div>                        
                     </form>
                     
@@ -155,7 +155,7 @@
 		var string = /admin/gi;
 		
 		if(form.id.value.match(string)){
-			alert("단어");
+			alert("그 단어는 포함될 수 없습니다");
 			return false;
 		}
 		
@@ -186,6 +186,16 @@
 		
 		if(!form.phone.value){
 			alert("전화번호를 입력해주세요");
+			return false;
+		}
+		
+		if(!form.age.value){
+			alert("나이를 입력해주세요");
+			return false;
+		}
+		
+		if(!form.email.value){
+			alert("e-mail을 입력해주세요");
 			return false;
 		}
 		
@@ -246,7 +256,7 @@
 				$('#phonecheck').attr('color', '#f82a2aa3');
 			}
 		});
-		
+
 	});
 </script>
 

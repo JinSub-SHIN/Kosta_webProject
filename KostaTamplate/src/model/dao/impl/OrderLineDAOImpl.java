@@ -261,6 +261,7 @@ public class OrderLineDAOImpl implements OrderLineDAO {
 				orderItem.setOrderLine(orderLine);
 				orderItem.setProduct(product);
 				orderItem.setEndDate(rs.getDate("end_date"));
+				orderItem.setIsRefund(rs.getInt("isrefund"));
 
 				list.add(orderItem);
 			}

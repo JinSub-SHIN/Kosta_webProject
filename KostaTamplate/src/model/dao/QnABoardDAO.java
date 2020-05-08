@@ -35,6 +35,20 @@ public interface QnABoardDAO {
 	 * (내용 or 제목으로 조회) 키워드조회
 	 */
 	List<QnABoard> selectByKeyword(String keyField, String keyword) throws SQLException;
-
+	
+	/**
+	 * 게시글 상세보기
+	 */
 	QnABoard selectByNo(int no) throws SQLException;
+	
+	/**
+	 * 조회 수 업데이트
+	 */
+	int addViewCount(int no) throws SQLException;
+	
+	/**
+	 * 답변 등록
+	 * @throws SQLException 
+	 */
+	int insertAnswer(String subject, String title, String prodId, int parentNumber, String id) throws SQLException;
 }

@@ -63,4 +63,9 @@ public interface ProductDAO {
 	 */
 	int deleteProd(String id) throws SQLException;
 	
+	/**
+	 *  해당 강사가 강의하는 강의정보 전체조회.
+	 */	
+	List<Product> selectByTeahcerId(String id) throws SQLException;
+	
 }

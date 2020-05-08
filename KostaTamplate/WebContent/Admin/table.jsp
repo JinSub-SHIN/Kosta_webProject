@@ -64,18 +64,22 @@
                 <div class="container-fluid">
                     <ul class="navbar-mobile__list list-unstyled">
                         <li class="has-sub">
-                            <a class="js-arrow" href="${path}/Admin/index.jsp">
+                            <a class="js-arrow" href="${path}/javaChip?command=SelectCus">
                                 <i class="fas fa-tachometer-alt"></i>대시보드</a>
                             <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                             </ul>
                         </li>
                         <li>
-                            <a href="${path}/Admin/table.jsp">
-                                <i class="fas fa-table"></i>Tables</a>
+                            <a href="${path}/javaChip?command=selectAdminProd">
+                                <i class="fas fa-table"></i>판매품목</a>
                         </li>
                         <li>
-                            <a href="${path}/Admin/form.jsp">
-                                <i class="far fa-check-square"></i>Forms</a>
+                            <a href="${path}/javaChip?command=teacherinput">
+                                <i class="far fa-check-square"></i>등록</a>
+                        </li>
+                        <li>
+                            <a href="${path}/javaChip?command=SelectAllperson">
+                                <i class="far fa-check-square"></i>회원목록</a>
                         </li>                        
                     </ul>
                 </div>
@@ -104,8 +108,12 @@
                                 <i class="fas fa-table"></i>판매품목</a>
                         </li>
                         <li>
-                            <a href="${path}/Admin/form.jsp">
-                                <i class="far fa-check-square"></i>고객관리</a>
+                            <a href="${path}/javaChip?command=teacherinput">
+                                <i class="far fa-check-square"></i>등록</a>
+                        </li>
+                        <li>
+                            <a href="${path}/javaChip?command=SelectAllperson">
+                                <i class="far fa-check-square"></i>회원목록</a>
                         </li>                         
                     </ul>
                 </nav>
@@ -126,7 +134,7 @@
                                             <img src="images/icon/admin01.png" alt="JinSub_SHIN" />
                                         </div>
                                         <div class="content">
-                                            <a class="js-acc-btn" href="#">JinSub_SHIN</a>
+                                            <a class="js-acc-btn" href="#">신진섭</a>
                                         </div>
                                         <div class="account-dropdown js-dropdown">
                                             <div class="info clearfix">
@@ -137,23 +145,19 @@
                                                 </div>
                                                 <div class="content">
                                                     <h5 class="name">
-                                                        <a href="#">JinSub_SHIN</a>
+                                                        <a href="#">신진섭</a>
                                                     </h5>
                                                     <span class="email">JinSub@kosta.com</span>
                                                 </div>
                                             </div>
                                             <div class="account-dropdown__body">
                                                 <div class="account-dropdown__item">
-                                                    <a href="#">
-                                                        <i class="zmdi zmdi-account"></i>Account</a>
+                                                    <a href="${path}/community/community.jsp">
+                                                        <i class="zmdi zmdi-account"></i>커뮤니티</a>
                                                 </div>
                                                 <div class="account-dropdown__item">
-                                                    <a href="#">
-                                                        <i class="zmdi zmdi-settings"></i>Setting</a>
-                                                </div>
-                                                <div class="account-dropdown__item">
-                                                    <a href="#">
-                                                        <i class="zmdi zmdi-money-box"></i>Billing</a>
+                                                    <a href="${path}/javaChip?command=selectProd">
+                                                        <i class="zmdi zmdi-settings"></i>자료등록</a>
                                                 </div>
                                             </div>
                                             <div class="account-dropdown__footer">
@@ -177,7 +181,7 @@
                             <div class="col-lg-9" style="max-width: 100%">
                             <h2 class="title-1 m-b-25">판매품목</h2>
                                     <button class="au-btn au-btn-icon au-btn--blue" 
-                                   onclick="window.open('write.jsp','상품등록','width=700,height=540,location=no,status=no,scrollbars=yes');">
+                                   onclick="window.open('${path}/javaChip?command=Admininput','상품등록','width=700,height=540,location=no,status=no,scrollbars=yes');">                                   
                                         <i class="zmdi zmdi-plus"></i>상품등록</button>
                                     <button class="au-btn au-btn-icon au-btn--blue" 
                                    onclick="window.open('writeChapter.jsp','강의등록','width=700,height=540,location=no,status=no,scrollbars=yes');">

@@ -21,7 +21,7 @@
 <style>
 html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
 </style>
-
+<script src="${path}/mypage/js/jquery-3.3.1.min.js"></script>
 <script>
 
 	window.addEventListener("load", function(){
@@ -31,20 +31,39 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
 		
 		updatepwd.onclick = function(){
 			
-			window.open('${path}/mypage/pwdcheck.html', '_blank', 'width=600, height=400');
+			window.open('${path}/mypage/pwdcheck.jsp', '_blank', 'width=600, height=400');
 			
 		};
 		
 		destoryid.onclick = function(){
 			
-			window.open('${path}/mypage/destoryidcheck.html', '_blank', 'width=600, height=400');
+			window.open('${path}/mypage/destoryidcheck.jsp', '_blank', 'width=600, height=400');
 			
 		}
 		
-	});
+		$(".notrefund").click(function(){
+			
+			alert("환불 불가 상품입니다.");			
+			
+		});	
+		
+		
+		$(".canrefund").click(function(){
+			
+			var value = $(this).val();			
+			
+			var result = confirm("환불하시겠습니까?");
+			
+			if(result){
+				
+				location.href="${path}/javaChip?command=canrefund&orderNo="+value;				
+			}
+			
+		});
+		
+	});	
 
 </script>
-
 
 <body class="w3-theme-l5">
 
@@ -101,12 +120,21 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
 			          <li class="nav-item" id="logout">
 			            <a class="nav-link" href="${path}/javaChip?command=logout"><span style="color: white; font-weight: bold">로그아웃</span></a>
 			          </li>
+			          <c:if test="${sessionScope.userStatus==1}">
 			          <li class="nav-item">
 			            <a class="nav-link" href="${path}/javaChip?command=selectByCusIdOrderLine"><span style="color: white; font-weight: bold">마이페이지/내강의실</span></a>
 			          </li>
+			          </c:if>
+			          <c:if test="${sessionScope.userStatus==2}">
 			          <li class="nav-item">
-						<a class="nav-link" href="${path}/mycart/newmycart.jsp"><span style="color: white; font-weight: bold">장바구니</span></a>
+			            <a class="nav-link" href="${path}/javaChip?command=Tgangmok"><span style="color: white; font-weight: bold">마이페이지</span></a>
+			          </li>
+			          </c:if>
+			          <c:if test="${sessionScope.userStatus==1}"><!-- customer인 경우에만 장바구니 보이기 -->
+			          <li class="nav-item">
+						<a class="nav-link" href="${path}/javaChip?command=selectCart&id=${userId}"><span style="color: white; font-weight: bold">장바구니</span></a>
 					  </li>
+					  </c:if>
 			          <li class="nav-item">
 			            <a class="nav-link" href="${path}/javaChip?command=selectProd"><span style="color: white; font-weight: bold">강의목록</span></a>
 			          </li>
@@ -134,7 +162,15 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
       <div class="w3-card w3-round w3-white">
         <div class="w3-container">
          <h4 class="w3-center" style="margin-top: 15px;">${user.name} 회원님</h4>
-         <p class="w3-center"><img src="images/teacherjang.jpg" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
+         <c:if test="${user.gender eq '남자'}">
+         	<p class="w3-center"><img src="${path}/mypage/images/man.jpg" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
+         </c:if>
+         <c:if test="${user.gender eq '여자'}">
+         	<p class="w3-center"><img src="${path}/mypage/images/woman.jpg" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
+         </c:if>
+         <c:if test="${user.gender eq 'Other'}">
+         	<p class="w3-center"><img src="${path}/mypage/images/other.jpg" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
+         </c:if>
          <hr>
          <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>email : ${user.email}</p>
          <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i>phone : ${user.phone}</p>
@@ -153,18 +189,18 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
       <br>
       
       <!-- 최근수강강의 --> 
-      <div class="w3-card w3-round w3-white w3-hide-small">
-        <div class="w3-container" style="text-align: center;">
-          <h4 class="w3-center" style="margin-top: 15px;">최근수강강의</h4>
-          <hr>
-          <p>
-          <!-- 최근수강 3개까지표현된다. -->
-            <a href=""><span class="w3-tag w3-small w3-theme-d5">JAVA 1강 - 반복문</span></a><br>
-            <a href=""><span class="w3-tag w3-small w3-theme-d5">JAVA 2강 - 제어문</span></a><br>
-            <a href=""><span class="w3-tag w3-small w3-theme-d5">JAVA 3강 - 조건문</span></a>
-          </p>
-        </div>
-      </div>
+<!--       <div class="w3-card w3-round w3-white w3-hide-small"> -->
+<!--         <div class="w3-container" style="text-align: center;"> -->
+<!--           <h4 class="w3-center" style="margin-top: 15px;">최근수강강의</h4> -->
+<!--           <hr> -->
+<!--           <p> -->
+<!--           최근수강 3개까지표현된다. -->
+<!--             <a href=""><span class="w3-tag w3-small w3-theme-d5">JAVA 1강 - 반복문</span></a><br> -->
+<!--             <a href=""><span class="w3-tag w3-small w3-theme-d5">JAVA 2강 - 제어문</span></a><br> -->
+<!--             <a href=""><span class="w3-tag w3-small w3-theme-d5">JAVA 3강 - 조건문</span></a> -->
+<!--           </p> -->
+<!--         </div> -->
+<!--       </div> -->
       <br>  
     
     <!-- End Left Column -->
@@ -176,11 +212,11 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
       <div class="w3-container w3-card w3-white w3-round w3-margin" style="width: 900px;"><br>        
        <h4>수강중인 목록</h4><br>
         <hr class="w3-clear" style="margin: 0">
-        <table style="width: 900px; height: 150px;">
+        <table class="table table-striped" style="width: 850px; height: 150px;">
         <tr><th>강의명</th><th>강사명</th><th>수강종료기간</th></tr>
-        <c:forEach items="${orderList}" var="list">
+        <c:forEach items="${myLectureList}" var="list">
         	<tr>
-        		<td><a href="${path}/javaChip?command=selectProdDetail&prodId=${list.product.id}">${list.product.name}</a></td>
+        		<td><a href="${path}/javaChip?command=selectProdDetail&goTo=mychapter&prodId=${list.product.id}">${list.product.name}</a></td>
         		<td>${list.product.teacher.name}</td>
         		<td>${list.endDate}</td>
         	</tr>
@@ -195,8 +231,8 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
       <div class="w3-container w3-card w3-white w3-round w3-margin" style="width: 900px;"><br>        
        <h4>결제내역</h4><br>
         <hr class="w3-clear" style="margin: 0">
-        <table style="width: 900px; height: 150px;">
-        <tr><th>강의명</th><th>강사명</th><th>결제금액</th><th>승인날짜</th></tr>
+        <table class="table table-striped" style="width: 850px; height: 150px;">
+        <tr><th>강의명</th><th>강사명</th><th>결제금액</th><th>승인날짜</th><th>환불</th></tr>
         
         <c:forEach items="${orderList}" var="list">
         	<tr>
@@ -204,6 +240,12 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
         		<td>${list.product.teacher.name}</td>
         		<td>${list.product.price}</td>
         		<td>${list.orderLine.payDate}</td>
+        		<c:if test="${list.orderLine.canrefund eq true}">        		
+        		<td><button value="${list.itemNo}" class="canrefund">가능</button></td>        		
+        		</c:if>
+        		<c:if test="${list.orderLine.canrefund eq false}">
+        		<td><input type="button" value="불가" class="notrefund"></td>
+        		</c:if>
         	</tr>
         </c:forEach>
         </table> 
@@ -212,15 +254,12 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
       
     <!-- End Middle Column -->
     </div>
-    
     <!-- End Right Column -->
     </div>
     
   <!-- End Grid -->  
 <!-- End Page Container -->
 <br>
-
-
 
   <footer class="py-5 bg-dark">
     <div class="container">

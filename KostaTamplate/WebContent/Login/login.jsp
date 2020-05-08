@@ -30,8 +30,14 @@
 <!--===============================================================================================-->
 
 </head>
+<style>
+.errorMsg{
+	position: absolute;
+	right: -230px;
+    top: 20px;
+}
+</style>
 <body>
-	
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100 p-t-90 p-b-30">
@@ -48,9 +54,11 @@
 
 					<div class="wrap-input100 validate-input m-b-16" data-validate="아이디를 입력하세요">
 						<input class="input100" type="text" name="id" placeholder="ID">
+						<span class="errorMsg" style="color:red">${errorMsg}</span>
 						<span class="focus-input100"></span>
 					</div>
-
+					
+					
 					<div class="wrap-input100 validate-input m-b-20" data-validate = "비밀번호를 입력하세요">
 						<span class="btn-show-pass">
 							<i class="fa fa fa-eye"></i>
@@ -72,11 +80,11 @@
 					<br>
 					
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn"onclick="window.open('findid.jsp', '_blank', 'width=600, height=400');">
+						<button class="login100-form-btn"onclick="window.open('${path}/Login/findid.jsp', '_blank', 'width=600, height=400');">
 							ID찾기
 						</button>
 						
-						<button class="login100-form-btn" onclick="window.open('findpwd.jsp', '_blank', 'width=600, height=400');">
+						<button class="login100-form-btn" onclick="window.open('${path}/Login/findpwd.jsp', '_blank', 'width=600, height=400');">
 							비밀번호찾기
 						</button>
 					</div>

@@ -10,6 +10,12 @@ public interface CustomerDAO {
 	 */
 	int insert(Customer customer) throws SQLException;
 	
+	
+	/**
+	 * pwd 수정
+	 */
+	int updatePwd(String id, String pwd)throws SQLException;
+	
 	/**
 	 * 회원정보수정(비밀번호, 전화번호, 이메일, 상태(가입or탈퇴회원))
 	 */

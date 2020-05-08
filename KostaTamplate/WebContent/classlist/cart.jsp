@@ -219,12 +219,20 @@ td, th{
 			          <li class="nav-item" id="logout">
 			            <a class="nav-link" href="${path}/javaChip?command=logout"><span style="color: white; font-weight: bold">로그아웃</span></a>
 			          </li>
+			          <c:if test="${sessionScope.userStatus==1}">
 			          <li class="nav-item">
-			            <a class="nav-link" href="${path}/mypage/mypage.jsp"><span style="color: white; font-weight: bold">마이페이지/내강의실</span></a>
+			            <a class="nav-link" href="${path}/javaChip?command=selectByCusIdOrderLine"><span style="color: white; font-weight: bold">마이페이지/내강의실</span></a>
 			          </li>
+			          </c:if>
+			          <c:if test="${sessionScope.userStatus==2}">
 			          <li class="nav-item">
-						<a class="nav-link" href="${path}/mycart/newmycart.jsp"><span style="color: white; font-weight: bold">장바구니</span></a>
+			            <a class="nav-link" href="${path}/javaChip?command=Tgangmok"><span style="color: white; font-weight: bold">마이페이지</span></a>
+			          </li></c:if>
+			          <c:if test="${sessionScope.userStatus==1}"><!-- customer에게만 장바구니 보이기 -->
+			          <li class="nav-item">
+						<a class="nav-link" href="${path}/javaChip?command=selectCart&id=${userId}"><span style="color: white; font-weight: bold">장바구니</span></a>
 					  </li>
+					  </c:if>
 			          <li class="nav-item">
 			            <a class="nav-link" href="${path}/javaChip?command=selectProd"><span style="color: white; font-weight: bold">강의목록</span></a>
 			          </li>
@@ -254,7 +262,7 @@ td, th{
       <h3>※ 최  다  판  매  량 ※</h3>
       <hr>
       <p class="lead">자바칩의 자랑 장희정 강사!<br> 프로그래밍계의 전설!<br> 패키지로 바로 만나보세요!<br><br></p>
-      <a href="#" class="btn btn-primary btn-lg">패키지구매하기</a>
+      <a href="${path}/javaChip?command=selectProdInfo&prodId=PACK" class="btn btn-primary btn-lg">패키지구매하기</a>
       </div> 
       </div>
     </header>

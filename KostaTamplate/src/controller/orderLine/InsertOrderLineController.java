@@ -36,8 +36,8 @@ public class InsertOrderLineController implements Controller {
 		OrderItem orderIem = new OrderItem(null, orderLine, product);
 
 		OrderLineService.insert(orderIem);
-
-		ModelAndView mv = new ModelAndView(true, "javaChip?command=selectCart");
+		
+		ModelAndView mv = new ModelAndView(true, "javaChip?command=selectCart"); 
 		return mv;
 	}
 

@@ -85,6 +85,11 @@ public class ProductService {
 	}
 	
 	
+	public static List<Product> selectByTeacherId(String id) throws SQLException{
+		
+		return productDAO.selectByTeahcerId(id);
+	}
+	
 	
 	
 }

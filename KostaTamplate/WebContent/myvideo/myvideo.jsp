@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -106,41 +107,41 @@
       <div class="col-lg-8">
 
         <!-- Title -->
-        <h1 class="mt-4">JAVA 왕초보 1강</h1>
+        <h1 class="mt-4">${prodDetail.product.name} ${prodDetail.chapter}강</h1>
 
         <!-- Author -->
         <p class="lead">
           by
-          <a href="#">김민호 강사</a>
+          <a href="#">${prodDetail.product.teacher.name} 강사</a>
         </p>
 
         <hr>
 
         <!-- Preview Image -->
-        <video src="video/videosample.mp4" width='800' height="500" controls>
+        <video src="${path}/save/${prodDetail.url}" width='800' height="500" controls>
         </video>
 
         <hr>
 
-        <!-- Post Content -->
-        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, vero, obcaecati, aut, error quam sapiente nemo saepe quibusdam sit excepturi nam quia corporis eligendi eos magni recusandae laborum minus inventore?</p>
+<!--         Post Content -->
+<!--         <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, vero, obcaecati, aut, error quam sapiente nemo saepe quibusdam sit excepturi nam quia corporis eligendi eos magni recusandae laborum minus inventore?</p> -->
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.</p>
+<!--         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.</p> -->
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos, doloribus, dolorem iusto blanditiis unde eius illum consequuntur neque dicta incidunt ullam ea hic porro optio ratione repellat perspiciatis. Enim, iure!</p>
+<!--         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos, doloribus, dolorem iusto blanditiis unde eius illum consequuntur neque dicta incidunt ullam ea hic porro optio ratione repellat perspiciatis. Enim, iure!</p> -->
 
-        <blockquote class="blockquote">
-          <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-          <footer class="blockquote-footer">Someone famous in
-            <cite title="Source Title">Source Title</cite>
-          </footer>
-        </blockquote>
+<!--         <blockquote class="blockquote"> -->
+<!--           <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p> -->
+<!--           <footer class="blockquote-footer">Someone famous in -->
+<%--             <cite title="Source Title">Source Title</cite> --%>
+<!--           </footer> -->
+<!--         </blockquote> -->
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, nostrum, aliquid, animi, ut quas placeat totam sunt tempora commodi nihil ullam alias modi dicta saepe minima ab quo voluptatem obcaecati?</p>
+<!--         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, nostrum, aliquid, animi, ut quas placeat totam sunt tempora commodi nihil ullam alias modi dicta saepe minima ab quo voluptatem obcaecati?</p> -->
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum, dolor quis. Sunt, ut, explicabo, aliquam tenetur ratione tempore quidem voluptates cupiditate voluptas illo saepe quaerat numquam recusandae? Qui, necessitatibus, est!</p>
+<!--         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum, dolor quis. Sunt, ut, explicabo, aliquam tenetur ratione tempore quidem voluptates cupiditate voluptas illo saepe quaerat numquam recusandae? Qui, necessitatibus, est!</p> -->
 
-        <hr>       
+<!--         <hr>        -->
 
       </div>
 
@@ -151,8 +152,9 @@
         <div class="card my-4">
           <h5 class="card-header">상세정보</h5>
           <div class="card-body">
-            기본적인 변수선언에 대해 배웁니다.<p>
-            변수를 타입에 따라 캐스팅 할 수 있음을<br> 배웁니다.
+          	${prodDetail.product.description}
+<!--             기본적인 변수선언에 대해 배웁니다.<p> -->
+<!--             변수를 타입에 따라 캐스팅 할 수 있음을<br> 배웁니다. -->
           </div>
         </div>
         
@@ -164,20 +166,13 @@
               <div class="col-lg-6">
                 <ul class="list-unstyled mb-0">
                   <li>
-                    <a href="${path}/mychapter/mychapter.jsp">리스트로 이동</a>
+                    <a href="${path}/javaChip?command=selectProdDetail&goTo=mychapter&prodId=${prodDetail.product.id}">리스트로 이동</a>
                   </li>
-                  <li>
-                    <a href="${path}/myvideo/myvideo.jsp">1강 변수선언</a>
-                  </li>
-                  <li>
-                    <a href="${path}/myvideo/myvideo.jsp">2강 반복문</a>
-                  </li>
-                  <li>
-                    <a href="${path}/myvideo/myvideo.jsp">3강 제어문</a>
-                  </li>
-                  <li>
-                    <a href="${path}/myvideo/myvideo.jsp">4강 람다식</a>
-                  </li>
+                  <c:forEach items="${detailList}" var="detail">
+	                  <li>
+	                    <a href="${path}/javaChip?command=selectProdDetail&goTo=myvideo&prodId=${detail.product.id}&chapter=${detail.chapter}">${detail.chapter}강 ${detail.title}</a>
+	                  </li>
+                  </c:forEach>
                 </ul>
               </div>
             </div>

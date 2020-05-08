@@ -31,10 +31,10 @@
     <!-- DBCP기술 적용 -->
     <Resource name="jdbc/myoracle" auth="Container"
               type="javax.sql.DataSource" driverClassName="oracle.jdbc.OracleDriver"
-              url="jdbc:oracle:thin:@localhost:1521:xe"
-              username="cyber" password="cyber" maxTotal="20" maxIdle="10"
+              url="jdbc:oracle:thin:@192.168.0.187:1521:xe"
+              username="gangi" password="gangi" maxTotal="20" maxIdle="10"
               maxWaitMillis="-1"/>
-              
+        
              <!--  <Resource name="jdbc/myoracle" auth="Container"
               type="javax.sql.DataSource" driverClassName="oracle.jdbc.OracleDriver"
               url="jdbc:oracle:thin:@localhost:1521:xe"

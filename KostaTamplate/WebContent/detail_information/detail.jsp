@@ -28,7 +28,7 @@
 		<c:choose>
 			<c:when test="${empty sessionScope.userId}">	<!-- 로그인하지 않았다면... -->	
         <div class="container">
-          <div class="row align-items-center position-relative">          				
+          <div class="row align-items-center position-relative">		
             <div class="col-lg-4">
               <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"> 
 			    <div class="container">
@@ -77,12 +77,21 @@
 			          <li class="nav-item" id="logout">
 			            <a class="nav-link" href="${path}/javaChip?command=logout"><span style="color: white; font-weight: bold">로그아웃</span></a>
 			          </li>
+			          <c:if test="${sessionScope.userStatus==1}">
 			          <li class="nav-item">
-			            <a class="nav-link" href="${path}/mypage/mypage.jsp"><span style="color: white; font-weight: bold">마이페이지/내강의실</span></a>
+			            <a class="nav-link" href="${path}/javaChip?command=selectByCusIdOrderLine"><span style="color: white; font-weight: bold">마이페이지/내강의실</span></a>
 			          </li>
+			          </c:if>
+			          <c:if test="${sessionScope.userStatus==2}">
 			          <li class="nav-item">
-						<a class="nav-link" href="${path}/mycart/newmycart.jsp"><span style="color: white; font-weight: bold">장바구니</span></a>
+			            <a class="nav-link" href="${path}/javaChip?command=Tgangmok"><span style="color: white; font-weight: bold">마이페이지</span></a>
+			          </li>
+			          </c:if>
+			          <c:if test="${sessionScope.userStatus==1}"><!-- customer인 경우에만 장바구니 보이기 -->
+			          <li class="nav-item">
+						<a class="nav-link" href="${path}/javaChip?command=selectCart&id=${userId}"><span style="color: white; font-weight: bold">장바구니</span></a>
 					  </li>
+					  </c:if>
 			          <li class="nav-item">
 			            <a class="nav-link" href="${path}/javaChip?command=selectProd"><span style="color: white; font-weight: bold">강의목록</span></a>
 			          </li>
@@ -118,7 +127,7 @@
       <div class="col-lg-9">
 
         <div class="card mt-4">
-          <video src="${path}/detail_information/video/${prodDetail.url}" width='820' height="400" controls>
+          <video src="${path}/save/${prodDetail.url}" width='820' height="400" controls>
           </video>          
           <div class="card-body">
             <h3 class="card-title"> ${prodDetail.product.name} by${prodDetail.product.teacher.name}</h3>
@@ -143,27 +152,29 @@
           </div>
           <div class="card-body">
           	<c:forEach items="${estimateList}" var="estBoard">
-          		<p>${estBoard.subject}</p>
+          		<p>
+          		${estBoard.subject}<br>
           		<span class="text-warning">
 	            <c:choose>
 					<c:when test="${estBoard.grade == 5}">
 						&#9733; &#9733; &#9733; &#9733; &#9733;
 					</c:when>
 					<c:when test="${estBoard.grade == 4}">
-					 &#9733; &#9733; &#9733; &#9733; &#9734; 
+						&#9733; &#9733; &#9733; &#9733; &#9734; 
 					</c:when>
 					<c:when test="${estBoard.grade == 3}">
-						&#9733; &#9733; &#9733; &#9734;
+						&#9733; &#9733; &#9733; &#9734; &#9734;
 					</c:when>
 					<c:when test="${estBoard.grade == 2}">
-						&#9733; &#9733; &#9734;&#9734;&#9734;
+						&#9733; &#9733; &#9734; &#9734; &#9734;
 					</c:when>
 					<c:when test="${estBoard.grade == 1}">
-						&#9733;&#9734;&#9734;&#9734;&#9734;
+						&#9733; &#9734; &#9734; &#9734; &#9734;
 					</c:when>
 				</c:choose>
 	            </span>
 	            <small class="text-muted">${estBoard.writeDay}</small>
+	            </p>
           	</c:forEach>
             <hr>
             <a href="${path}/javaChip?command=insertCart&prodId=${prodDetail.product.id}" class="btn btn-success">장바구니 담기</a>

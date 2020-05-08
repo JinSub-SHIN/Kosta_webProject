@@ -53,7 +53,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 			ps.setString(3, customer.getName());
 			ps.setString(4, customer.getPhone());
 			ps.setString(5, customer.getGender());
-			
+
+			result = ps.executeUpdate();
 			
 			if(customer.getId()!=null) {
 				ps1 = con.prepareStatement(sql2);
@@ -61,9 +62,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 				ps1.setString(1, customer.getId());
 				ps1.setInt(2, customer.getAge());
 				ps1.setString(3, customer.getEmail());
+				result = ps1.executeUpdate();
 			}
-
-			result = ps.executeUpdate();
 			System.out.println(result);
 		
 		} finally {
@@ -71,7 +71,30 @@ public class CustomerDAOImpl implements CustomerDAO {
 		}
 		return result;
 	}
+
 	
+	
+	@Override
+	public int updatePwd(String id, String pwd) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		int result = 0;
+		String sql = pro.getProperty("updatePwd");
+		
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			
+			ps.setString(1, pwd);
+			ps.setString(2, id);
+			result = ps.executeUpdate();
+		}finally {
+			DbUtil.dbClose(con, ps);
+		}
+		
+		return result;
+	}
+
 	@Override
 	public int update(Customer customer) throws SQLException {
 		Connection con = null;
@@ -113,12 +136,12 @@ public class CustomerDAOImpl implements CustomerDAO {
 			}
 			
 			//admin 포함되어있는지 확인
-			String str = rs.getString(id);
+			/*String str = rs.getString(id);
 			str.toLowerCase();
 			boolean flag = str.contains("admin");
 			if(flag==true) {
 				result  = 1;
-			}
+			}*/
 			
 		} finally {
 			DbUtil.dbClose(con, ps, rs);

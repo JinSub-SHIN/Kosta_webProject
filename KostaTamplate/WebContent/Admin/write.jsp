@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <HTML>
 <HEAD>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="${path}/Admincss/style.css">
 
-<SCRIPT language=javascript>
+<script src="${path}/Admin/js/jquery-3.3.1.min.js"></script>
+<script>
 
 	window.addEventListener("load", function(){
 		
@@ -17,29 +19,111 @@
 			
 			var num = document.getElementById("prodnum").value;
 			
-			if(num=="12345"){
+			if(num=="" || num==null){
 				
-				alert("상품번호 중복입니다.");
-				return;
+				alert("입력값을 확인해주세요");
+				
+				document.getElementById("prodnum").focus();
 				
 			} else {
 				
-				alert("등록가능합니다");				
+				$.ajax({
+					
+					type : "post" ,
+					data : "id="+num ,
+					dataType : "text" ,
+					url : "${path}/prodCheck" ,
+					success : function(Data){
+						
+						if(Data=="o"){
+							alert("등록가능합니다");
+							$("#dupcheck").val('Y');
+						} else {
+							alert("이미 등록된 상품입니다");
+							$("#dupcheck").val('N');
+						}						
+					}
+					
+				});
 				
 			}
 			
-		}
+		}	
+
+		var level = document.getElementById("level");				
+		var levelinput = document.getElementById("levelinput");				
+		
+		level.onchange = function(){			
+			if(level.value == "직접입력"){								
+				levelinput.type = "text";
+			} else {
+				levelinput.type = "hidden";
+			}
+		};
+		
+
 		
 	});
-
-</SCRIPT>
-
+	
+	function checkValid() {
+	    var f = window.document.writeForm;
+			
+		if ( f.model_num.value == "") {
+		    alert( "상품번호를 입력해 주세요." );
+		    f.model_num.focus();
+			return false;
+	    }
+		if ( f.model_name.value == "" ) {
+			alert( "상품이름을 입력해 주세요." );
+			f.model_name.focus();
+			return false;
+		}
+		if ( f.price.value == "" ) {
+			alert( "가격을 입력해 주세요." );
+			f.price.focus();
+			return false;
+		}
+		if ( f.description.value == "" ) {
+	        alert( "상품 설명을 입력해 주세요." );
+	        f.description.focus();
+	        return false;
+	    }
+		
+		if ( f.dupcheck.value == "N") {
+			alert( "중복 확인을 해주세요");
+			return false;
+		}
+		
+		if( f.level.value == "레벨선택"){
+			alert( "레벨을 선택 해주세요");
+			return false;
+		}
+		
+		if( f.cate.value == "카테고리선택"){
+			alert( "카테고리를 선택 해주세요");
+			return false;
+		}
+		
+		if( f.teacher.value == "강사선택"){
+			alert( "강사를 선택 해주세요");
+			return false;
+		}
+		
+		if( f.validDate.value == ""){
+			alert( "유효기간을 입력해주세요");
+			return false;
+		}
+		
+	    return true;
+	}
+	
+</script>
 
 </HEAD>
 <BODY>
 
-<form name="writeForm" method="post" action="" 
-  onSubmit='return checkValid()' enctype="multipart/form-data">
+<form name="writeForm" method="post" action="${path}/javaChip?command=insertProd" 
+  onSubmit='return checkValid()'>
 
 <table align="center" cellpadding="5" cellspacing="2" width="600" border="2" >
   
@@ -52,9 +136,11 @@
         <td width="150" height="20" >
             <p align="right"><b><span style="font-size:9pt;">상품번호</span></b></p>
             
-        </td>
+        </td>        
         <td width="450" height="20"><b><span style="font-size:9pt;">		
-		<input type=text name="model_num" size="30" id="prodnum" ></span></b><button type="button" id="isit">중복체크</button></td>
+		<input type=text name="model_num" size="30" id="prodnum"></span></b><button type="button" id="isit">중복체크</button>
+		<input type="hidden" name="dupcheck" id="dupcheck" value="N">
+		</td>
     </tr>
     <tr>
         <td width="150" height="20">
@@ -65,17 +151,17 @@
     </tr>    
     <tr>
         <td width="150" height="20" >
-            <p align="right"><b><span style="font-size:9pt;">레벨</span></b></p>
+            <p align="right"><b><span style="font-size:9pt;">레벨</span></b></p>            
         </td>
-        <td>
-        	<select>
+        <td>        	
+        	<select name="level" id="level">
         		<option>레벨선택</option>
-        		<option>왕초보</option>
-        		<option>초보</option>
-        		<option>중수</option>
-        		<option>고수</option>
-        		<option>핵고수</option>        		
-        	</select>        
+	        	<c:forEach items="${list}" var="list">
+				<option>${list}</option>		
+				</c:forEach>
+				<option>직접입력</option>       		
+        	</select>
+        	<input type="hidden" name="levelinput" id="levelinput" placeholder="직접입력하세요">        	
         </td>        
     </tr>
     <tr>
@@ -83,15 +169,12 @@
             <p align="right"><b><span style="font-size:9pt;">카테고리</span></b></p>
         </td>
         <td>
-        	<select>
+        	<select name="cate" id="cate">
         		<option>카테고리선택</option>
-        		<option>JAVA</option>
-        		<option>Python</option>
-        		<option>HTML/CSS</option>
-        		<option>JavaScript</option>
-        		<option>C언어</option>
-        		<option>패키지</option>        		        		
-        	</select>        
+        		<c:forEach items="${clist}" var="clist">
+        		<option>${clist.id}-${clist.name}</option>
+        		</c:forEach>        		 		        		
+        	</select>        	      
         </td>        
     </tr>
     <tr>
@@ -99,16 +182,12 @@
             <p align="right"><b><span style="font-size:9pt;">강사명</span></b></p>
         </td>
         <td>
-        	<select>
+        	<select name="teacher" id="teacher">
         		<option>강사선택</option>
-        		<option>장희정강사</option>
-        		<option>김민호강사</option>
-        		<option>신진섭강사</option>
-        		<option>신선호강사</option>
-        		<option>이영진강사</option>
-        		<option>정준영강사</option>
-        		<option>김경화강사</option>        		
-        	</select>        
+        		<c:forEach items="${tlist}" var="tlist">
+        		<option>${tlist.id}-${tlist.name}</option>
+        		</c:forEach>        		        		
+        	</select>        	        
         </td>        
     </tr>    
     <tr>
@@ -118,6 +197,14 @@
         <td width="450" height="20" ><b><span style="font-size:9pt;">
 		<input type=text name="price" size="30"></span></b></td>
     </tr>
+    <tr>
+        <td width="150" height="20">
+            <p align="right"><b><span style="font-size:9pt;">유효기간</span></b></p>
+        </td>
+        <td width="450" height="20" ><b><span style="font-size:9pt;">
+		<input type=text name="validDate" size="30"></span></b></td>
+    </tr>
+    
     <tr>
         <td width="150" height="20">
             <p align="right"><b><span style="font-size:9pt;">상세설명</span></b></p>

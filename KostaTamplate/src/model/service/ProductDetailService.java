@@ -19,13 +19,21 @@ public class ProductDetailService {
 	 * ProductDetailDAOImpl의 레코드 삽입하는 메소드 호출
 	 */
 	public static void insert(ProductDetail productDetail) throws Exception {
-		if(productDAO.selectById(productDetail.getProduct().getId())==null) {
-			throw new NotFoundException("존재하지 않는 강의입니다.");
+		
+		if(productDetail.getFileName() == null) {			
+			int result = productDetailDAO.insertNoFile(productDetail);	
+			if(result==0) throw new SQLException("등록되지 않았습니다.");
+		} else {		
+			
+			if(productDAO.selectById(productDetail.getProduct().getId())==null) {
+				throw new NotFoundException("존재하지 않는 강의입니다.");
+			}
+			int result = productDetailDAO.insert(productDetail);
+			if(result==0) throw new SQLException("등록되지 않았습니다.");
+			
 		}
-		int result = productDetailDAO.insert(productDetail);
-		if(result==0) throw new SQLException("등록되지 않았습니다.");
 	}
-
+	
 	/**
 	 * ProductDetailDAOImpl의 productDetail에 해당하는 비밀번호 수정 메소드 호출
 	 */
@@ -56,4 +64,21 @@ public class ProductDetailService {
 	public static OrderItem selectProdStartEndDay(String customerId, String prodId) throws SQLException {
 		return productDetailDAO.selectProdStartEndDay(customerId, prodId);
 	}
+	
+	
+	/**
+	 * 챕터유무체크
+	 */
+	
+	public static int checkChatper(String prodId, String chapter) throws SQLException{
+		
+		return productDetailDAO.checkChapter(prodId, chapter);
+		
+	}
+	
+	
+	
+	
+	
+	
 }

@@ -40,5 +40,23 @@ public class TeacherService {
 			throw new SQLException("수정되지 않았습니다.");
 	}
 	
+	/**
+	 * 강사등록
+	 * @param teacher
+	 * @throws SQLException
+	 */
+	public static void insert(Teacher teacher) throws SQLException{
+		
+		Person person = new Person(teacher.getId(), teacher.getPwd(), teacher.getName(), 
+				teacher.getPhone(), teacher.getGender(), teacher.getStatus());
+		
+		int result = personDAO.insert(person);
+		if(result ==0) throw new SQLException("등록되지 않았습니다.");
+		
+		int result2 = teacherDAO.insert(teacher);		
+		if(result2==0) throw new SQLException("등록되지 않았습니다");
+		
+	}
+	
 	
 }

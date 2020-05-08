@@ -19,7 +19,7 @@ public class InsertEstController implements Controller {
 		String customerId = (String) request.getSession().getAttribute("userId");//id는 세션에서 가져오는 것으로 수정
 		String prodId = request.getParameter("prodId");
 		String grade = request.getParameter("grade");
-		System.out.println(customerId);
+		
 		if (content == null || content.equals("") || customerId == null || customerId.equals("") || prodId == null
 				|| prodId.equals("") || grade == null || grade.equals("")) {
 			throw new NotFoundException("인자값이 부족합니다.");

@@ -3,12 +3,13 @@ package controller.productDetail;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 import controller.Controller;
 import controller.ModelAndView;
-import exception.AddException;
 import model.domain.Product;
 import model.domain.ProductDetail;
-import model.domain.Storage;
 import model.service.ProductDetailService;
 
 public class InsertProductDetailController implements Controller {
@@ -16,29 +17,41 @@ public class InsertProductDetailController implements Controller {
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		String chapter = request.getParameter("chapter");
-		String url = request.getParameter("url");
-		String title = request.getParameter("prodTitle");
-		String fileId = request.getParameter("fileId");
-		String prodId = request.getParameter("prodId");
-		if (chapter == null || chapter.equals("") || url == null || url.equals("") || title == null || title.equals("")
-				|| fileId == null || fileId.equals("") || prodId == null || prodId.equals("")) {
-			new AddException("인자가 부족합니다.");
-		}
+		ProductDetail pd = new ProductDetail();
 		
-		Storage storage = new Storage();
-		storage.setId(fileId);
+		String saveDir = request.getServletContext().getRealPath("/save");
+		int maxSize = 1024*1024*100; // 100M
+		String encoding="UTF-8";
+		
+		MultipartRequest m = new MultipartRequest(request, saveDir, maxSize, encoding, new DefaultFileRenamePolicy());
+		
+		String prodnum = m.getParameter("model_num");		
+		String chapter = m.getParameter("chapter_num");
+		String title = m.getParameter("title");
+		
+		String videofileName = m.getFilesystemName("video_file");
+		String url = videofileName;
 		
 		Product product = new Product();
-		product.setId(prodId);
+		product.setId(prodnum);
 		
-		ProductDetail productDetail = new ProductDetail(chapter, url, title, storage, product);
+		if(m.getFilesystemName("text_file") != null && m.getFile("text_file").length() > 0 ) {
+			
+			// 강의자료가 존재한다면...
+			String textfileName = m.getFilesystemName("text_file");			
+			pd = new ProductDetail(chapter, url, title, textfileName, product);
+					
+		} else {
+			
+			// 강의자료가 없다면...				
+			pd = new ProductDetail(chapter, url, title, product);			
+		}		
 		
-		ProductDetailService.insert(productDetail);
+		ProductDetailService.insert(pd);
 
 		ModelAndView mv = new ModelAndView();
 		mv.setRedirect(true);
-		mv.setViewName("");
+		mv.setViewName("Admin/insertOk.jsp");
 		return mv;
 
 	}

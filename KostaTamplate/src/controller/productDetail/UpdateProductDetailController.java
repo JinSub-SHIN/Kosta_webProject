@@ -9,7 +9,6 @@ import exception.AddException;
 import exception.NotFoundException;
 import model.domain.Product;
 import model.domain.ProductDetail;
-import model.domain.Storage;
 import model.service.ProductDetailService;
 
 public class UpdateProductDetailController implements Controller {
@@ -27,10 +26,8 @@ public class UpdateProductDetailController implements Controller {
 
 		Product product = new Product();
 		product.setId(prodId);
-		Storage storage = new Storage();
-		storage.setId(fileId);
 
-		ProductDetail productDetail = new ProductDetail(chapter, null, null, storage, product);
+		ProductDetail productDetail = new ProductDetail(chapter, null, null, fileId, product);
 
 		ProductDetailService.update(productDetail);
 

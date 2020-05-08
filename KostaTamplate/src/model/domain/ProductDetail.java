@@ -4,17 +4,25 @@ public class ProductDetail {
 	private String chapter;
 	private String url;
 	private String title;
-	private Storage storage;
+	private String fileName;	
 	private Product product;
-	
+			
 	public ProductDetail() {}
-
-	public ProductDetail(String chapter, String url, String title, Storage storage, Product product) {
+	
+	public ProductDetail(String chapter, String url, String title, Product product) {
 		super();
 		this.chapter = chapter;
 		this.url = url;
 		this.title = title;
-		this.storage = storage;
+		this.product = product;
+	}
+	
+	public ProductDetail(String chapter, String url, String title, String fileName, Product product) {
+		super();
+		this.chapter = chapter;
+		this.url = url;
+		this.title = title;
+		this.fileName = fileName;
 		this.product = product;
 	}
 
@@ -42,14 +50,6 @@ public class ProductDetail {
 		this.title = title;
 	}
 
-	public Storage getStorage() {
-		return storage;
-	}
-
-	public void setStorage(Storage storage) {
-		this.storage = storage;
-	}
-
 	public Product getProduct() {
 		return product;
 	}
@@ -57,4 +57,12 @@ public class ProductDetail {
 	public void setProduct(Product product) {
 		this.product = product;
 	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}	
 }

@@ -24,15 +24,36 @@ table {
 	width: 1200px;
 	margin-top: 20px;
 }
+.kickOut{
+	border:0px;
+}
 </style>
 </head>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script>
-$(function(){
-	$('button[name=adminDel]').click(function(){ //admin이 게시글 삭제
-		location.href="${path}/javaChip?command=deleteEst&estimateNo="+$(this).val();
+	$(function() {
+		$('button[name=adminDel]').click(
+			function() { //admin이 게시글 삭제
+				location.href = "${path}/javaChip?command=deleteEst&estimateNo="+ $(this).val();
+		});
+
+		$('button[name=eval]').click(function() { //강의평 작성버튼
+			location.href="${path}/community/evaluateForm.jsp";
+			//location.href="${path}/javaChip?command=selectByCusIdEst";
+		});
 	});
-});
+	
+	window.onload = function(){
+		var kickOutBt = document.getElementsByClassName('kickOut');
+		
+		for(var i=0; i<kickOutBt.length; i++){
+			kickOutBt[i].onclick = function(){
+				if(confirm("강제탈퇴 시키시겠습니까?")){
+					location.href="${path}/javaChip?command=kickOutCustomer&customerId="+$(this).val();
+				}
+			}
+		}
+	};
 </script>
 <body>
 	<header class="site-navbar site-navbar-target bg-white" role="banner">
@@ -66,20 +87,33 @@ $(function(){
 											<li class="nav-item"><a class="nav-link"
 												href="${path}/javaChip?command=logout"><span
 													style="color: white; font-weight: bold">로그아웃</span></a></li>
-											<li class="nav-item"><a class="nav-link"
-												href="${path}/mypage/mypage.jsp"><span
-													style="color: white; font-weight: bold">마이페이지/내강의실</span></a></li>
-											<li class="nav-item"><a class="nav-link"
-												href="${path}/mycart/newmycart.jsp"><span
-													style="color: white; font-weight: bold">장바구니</span></a></li>
 										</c:when>
 									</c:choose>
+									<c:if
+										test="${sessionScope.userStatus == 1}">
+										<li class="nav-item"><a class="nav-link"
+											href="${path}/mypage/mypage.jsp"><span
+												style="color: white; font-weight: bold">마이페이지/내강의실</span></a></li>
+										<li class="nav-item"><a class="nav-link"
+											href="${path}/mycart/newmycart.jsp"><span
+												style="color: white; font-weight: bold">장바구니</span></a></li>
+									</c:if>
+							        <c:if test="${sessionScope.userStatus==2}">
+							         <li class="nav-item">
+							           <a class="nav-link" href="${path}/javaChip?command=Tgangmok"><span style="color: white; font-weight: bold">마이페이지</span></a>
+							         </li>
+							          </c:if>
 									<li class="nav-item"><a class="nav-link"
 										href="${path}/javaChip?command=selectProd"><span
 											style="color: white; font-weight: bold">강의목록</span></a></li>
 									<li class="nav-item"><a class="nav-link"
-										href="${path}/community/community.jsp"><span
+										href="${path}/javaChip?command=community"><span
 											style="color: white; font-weight: bold">커뮤니티</span></a></li>
+									<c:if test="${sessionScope.userStatus == 3}">
+										<li class="nav-item"><a class="nav-link"
+											href="${path}/Admin/index.jsp"><span
+												style="color: white; font-weight: bold">관리자페이지</span></a></li>
+									</c:if>
 								</ul>
 							</div>
 						</div>
@@ -96,10 +130,9 @@ $(function(){
 			<div class="sidebar-heading">Start Bootstrap</div>
 			<div class="list-group list-group-flush">
 				<a href="${path}/javaChip?command=selectAllQnA"
-					class="list-group-item list-group-item-action bg-light">Q&A게시판</a>
+					class="list-group-item list-group-item-action bg-light">QnA게시판</a>
 				<a href="${path}/javaChip?command=selectAllEst"
 					class="list-group-item list-group-item-action bg-light">강의평게시판</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">회사정보</a>
 			</div>
 		</div>
 		<!-- /#sidebar-wrapper -->
@@ -151,7 +184,8 @@ $(function(){
 							<th>작성자</th>
 							<th>작성일</th>
 							<c:if test="${userId == 'admin'}">
-							<th>삭제</th></c:if>
+								<th>삭제</th>
+							</c:if>
 						</tr>
 					</thead>
 					<tbody>
@@ -179,22 +213,19 @@ $(function(){
 										</c:when>
 									</c:choose></td>
 								<td>${est.subject}</td>
-								<td>${est.customer.id}</td>
+								<td id="userId"><button class="kickOut" value="${est.customer.id}">${est.customer.id}</button></td>
 								<td>${est.writeDay}</td>
-								<c:if test="${userId == 'admin'}">
-								<td><button value="${est.estimateNo}" name="adminDel">삭제</button>
-								</td></c:if>
+								<c:if test="${sessionScope.userStatus == 3}">
+									<td><button value="${est.estimateNo}" name="adminDel">삭제</button>
+									</td>
+								</c:if>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
-
 				<hr>
 				<c:if test="${not empty itemList}">
-					<!-- 구매한 상품이 없으면 강의평 작성 버튼 안보임 -->
-					<button style="float: right"
-						onclick="location.href='community/evaluateForm.jsp'">강의평 작성</button>
-				</c:if>
+				<button style="float: right" name='eval'>강의평 작성</button></c:if>
 			</div>
 		</div>
 		<!-- /#page-content-wrapper -->

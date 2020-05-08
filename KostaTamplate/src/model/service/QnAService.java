@@ -55,8 +55,28 @@ public class QnAService {
 	public static List<QnABoard> selectByKeyword(String keyField, String keyword) throws SQLException {
 		return qaDAO.selectByKeyword(keyField, keyword);
 	}
-
+	
+	/**
+	 * 게시글 번호로 조회
+	 */
 	public static QnABoard selectByNo(int no) throws SQLException {
 		return qaDAO.selectByNo(no);	
+	}
+	
+	/**
+	 * 조회수 증가
+	 */
+	public static int addViewCount(int no) throws SQLException{
+		return qaDAO.addViewCount(no);
+	}
+	
+	/**
+	 * 답변 등록
+	 * @return 
+	 * @throws SQLException 
+	 */
+	public static int insertAnswer(String subject, String title, String prodId, int parentNumber, String id) throws SQLException {
+		return qaDAO.insertAnswer(subject, title, prodId, parentNumber, id);
+		
 	}
 }

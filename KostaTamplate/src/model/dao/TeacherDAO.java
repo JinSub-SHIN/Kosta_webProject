@@ -15,4 +15,8 @@ public interface TeacherDAO {
 	 * 강사명으로 조회
 	 */
 	Teacher selectByName(String teacherName) throws SQLException;
+	
+	
+	int insert(Teacher teacher) throws SQLException;
+	
 }

@@ -12,6 +12,10 @@ public interface ProductDetailDAO {
 	 */
 	int insert(ProductDetail productDetail) throws SQLException;
 	
+	
+	int insertNoFile(ProductDetail productDetail) throws SQLException;
+	
+	
 	/**
 	 * 챕터(강의목차) 수정
 	 */
@@ -31,4 +35,7 @@ public interface ProductDetailDAO {
 	 * 챕터페이지 정보 띄우기 - 언제부터 언제까지 들을 수 있는지
 	 */
 	OrderItem selectProdStartEndDay(String customerId, String prodId) throws SQLException;
+
+
+	int checkChapter(String prodId, String chapter) throws SQLException;
 }

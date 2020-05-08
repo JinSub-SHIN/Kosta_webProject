@@ -44,6 +44,7 @@ public class HandlerMappingListener implements ServletContextListener {
     		ex.printStackTrace();
     	}
     	
+    	
     	//application영역에 저장한다.
     	application.setAttribute("map", map);
     	application.setAttribute("path", application.getContextPath());

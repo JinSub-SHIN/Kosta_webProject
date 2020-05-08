@@ -122,7 +122,6 @@ public class EstimateBoardDAOImpl implements EstimateBoardDAO {
 				
 				EstimateBoard estBoard = new EstimateBoard(rs.getInt("sequence"), rs.getString("subject"), customer,
 						product, rs.getDate("writeday"), rs.getInt("grade"));
-				System.out.println("impl:"+estBoard);
 				list.add(estBoard);
 			}
 		} finally {

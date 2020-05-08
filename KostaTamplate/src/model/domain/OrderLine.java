@@ -7,6 +7,7 @@ public class OrderLine {
 	private int totalPrice;
 	private Date payDate;
 	private Customer customer;
+	private boolean canrefund;
 	
 	public OrderLine() {}
 	
@@ -23,6 +24,15 @@ public class OrderLine {
 		this(total, customer);
 		this.lineNo = lineNo;
 		this.payDate = payDate;
+	}
+
+	public OrderLine(int lineNo, int totalPrice, Date payDate, Customer customer, boolean canrefund) {
+		super();
+		this.lineNo = lineNo;
+		this.totalPrice = totalPrice;
+		this.payDate = payDate;
+		this.customer = customer;
+		this.canrefund = canrefund;
 	}
 
 	public int getLineNo() {
@@ -56,4 +66,14 @@ public class OrderLine {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
+
+	public boolean isCanrefund() {
+		return canrefund;
+	}
+
+	public void setCanrefund(boolean canrefund) {
+		this.canrefund = canrefund;
+	}
+	
+	
 }

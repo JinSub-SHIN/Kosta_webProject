@@ -37,7 +37,7 @@ public class OrderItemDAOImpl implements OrderItemDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		int num = 0;
-		String sql = "SELECT ORDERITEM_NO FROM ORDERITEM";
+		String sql = "SELECT ORDERITEM_NO FROM ORDERITEM WHERE ISREFUND<>2";
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
@@ -59,7 +59,7 @@ public class OrderItemDAOImpl implements OrderItemDAO {
 		ResultSet rs = null;
 		int num = 0;
 		String sql = "SELECT * FROM ORDERITEM oi JOIN ORDERLINE ol ON oi.ORDER_NO = ol.ORDER_NO "
-				+ "WHERE ol.PAY_DATE >= TO_CHAR(SYSDATE-7,'YYYYMMDD')";
+				+ "WHERE ol.PAY_DATE >= TO_CHAR(SYSDATE-7,'YYYYMMDD') AND ISREFUND<>2";
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
@@ -81,7 +81,7 @@ public class OrderItemDAOImpl implements OrderItemDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		long sum = 0;
-		String sql = "SELECT * FROM ORDERLINE";
+		String sql = "SELECT * FROM ORDERLINE NATURAL JOIN ORDERITEM WHERE ISREFUND<>2";
 
 		try {
 
@@ -112,7 +112,7 @@ public class OrderItemDAOImpl implements OrderItemDAO {
 		List<OrderItem> list = new ArrayList<OrderItem>();
 		String sql = "SELECT * FROM (SELECT ROW_NUMBER() over (ORDER BY ORDERITEM_NO DESC) NUM, A.* "
 				+ "FROM ORDERITEM A ORDER BY ORDERITEM_NO DESC) NATURAL JOIN ORDERLINE "
-				+ "WHERE NUM<=7 ORDER BY NUM ASC";
+				+ "WHERE NUM<=7 AND ISREFUND<>2 ORDER BY NUM ASC";
 
 		try {
 
@@ -169,16 +169,12 @@ public class OrderItemDAOImpl implements OrderItemDAO {
 		PreparedStatement ps = null;
 		int result = 0;
 		String sql = pro.getProperty("updateItem");
-		System.out.println("어디서");
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, isRefund);
-			System.out.println("에러가");
 			ps.setInt(2, itemNo);
-			System.out.println("나는");
 			ps.setString(3, customerId);
-			System.out.println("거냐");
 			result = ps.executeUpdate();
 			System.out.println(result);
 		} finally {
@@ -209,6 +205,66 @@ public class OrderItemDAOImpl implements OrderItemDAO {
 			DbUtil.dbClose(con, ps);
 		}
 		return date;
+	}
+	
+	@Override
+	public int refund(int orderNo, String customerId, String prodId) throws SQLException {
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql = "UPDATE ORDERITEM SET ISREFUND=2 WHERE ORDERITEM_NO=?";
+		int i = 0;
+		
+		try {			
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, orderNo);
+			i = ps.executeUpdate();
+			
+			if(i != 0) {
+				sql = pro.getProperty("findYunjang");
+				ps = con.prepareStatement(sql);
+				ps.setString(1, customerId);
+				ps.setString(2, prodId);
+				rs = ps.executeQuery();
+				
+				if(rs.next()) {
+					sql = pro.getProperty("updateRefundBack");
+					ps = con.prepareStatement(sql);
+					ps.setString(1, customerId);
+					ps.setString(2, prodId);
+					i = ps.executeUpdate();
+				}
+			}
+			
+		} finally {
+			DbUtil.dbClose(con, ps);			
+		}		
+		return i;
+	}
+
+	@Override
+	public String selectByOrderItemNo(int itemNo) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String prodId = null;
+		String sql = pro.getProperty("selectByOrderItemNo");
+		
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, itemNo);
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				prodId = rs.getString(1);
+			}
+		} finally {
+			DbUtil.dbClose(con, ps);
+		}
+		return prodId;
 	}
 
 }

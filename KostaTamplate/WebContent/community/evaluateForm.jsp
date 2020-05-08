@@ -15,10 +15,10 @@
 <title>JavaChip-Community</title>
 
 <!-- Bootstrap core CSS -->
-<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="${path}/community/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom styles for this template -->
-<link href="css/simple-sidebar.css" rel="stylesheet">
+<link href="${path}/community/css/simple-sidebar.css" rel="stylesheet">
 
 <style>
 table {
@@ -43,9 +43,7 @@ table {
 	display: none;
 }
 </style>
-
 <script src="vendor/jquery/jquery.min.js"></script>
-
 <script>
 var grade;
 	$(function() {
@@ -58,8 +56,12 @@ var grade;
 
 		//강의평 등록하기 - 내가 수강하는 강의에 한하여 등록할 수 있다
 		$('#btnSave').click(function() { //강의평 등록
-			//alert($(":selected").val());
-			location.href="../javaChip?command=insertEst&prodId="+$(":selected").val()+"&content="+$('[name=content]').val()+"&grade="+grade;
+			if($('[name=content]').val() == null || $('[name=content]').val()==""
+					|| grade == null || grade == ""){
+				alert("별점과 내용을 모두 입력해주세요!");
+				return;
+			}
+			location.href="${path}/javaChip?command=insertEst&prodId="+$(":selected").val()+"&content="+$('[name=content]').val()+"&grade="+grade;
 		});
 	});//end load
 </script>
@@ -71,8 +73,7 @@ var grade;
 				<div class="col-lg-4">
 					<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 						<div class="container">
-							<a class="navbar-brand" href="${path}/marga/index.jsp">J A V
-								A C H I P</a>
+							<a class="navbar-brand" href="${path}/marga/index.jsp">J A V A C H I P</a>
 							<button class="navbar-toggler" type="button"
 								data-toggle="collapse" data-target="#navbarResponsive"
 								aria-controls="navbarResponsive" aria-expanded="false"
@@ -81,36 +82,49 @@ var grade;
 							</button>
 							<div class="collapse navbar-collapse" id="navbarResponsive">
 								<ul class="navbar-nav ml-auto">
-									<li class="nav-item active"></li>
-									<c:choose>
-										<c:when test="${userId==null}">
-											<li class="nav-item"><a class="nav-link"
-												href="${path}/Login/login.jsp"><span
-													style="color: white; font-weight: bold">로그인</span></a></li>
-											<li class="nav-item"><a class="nav-link"
-												onclick="window.open('${path}/regForm/regform.jsp', '_blank', 'width=600, height=400');">
-													<span style="color: white; font-weight: bold">회원가입</span>
-											</a></li>
-										</c:when>
-										<c:when test="${userId!=null}">
-											<li class="nav-item"><a class="nav-link"
-												href="${path}/javaChip?command=logout"><span
-													style="color: white; font-weight: bold">로그아웃</span></a></li>
-										</c:when>
-									</c:choose>
-									<li class="nav-item"><a class="nav-link"
-										href="${path}/mypage/mypage.jsp"><span
-											style="color: white; font-weight: bold">마이페이지/내강의실</span></a></li>
-									<li class="nav-item"><a class="nav-link"
-										href="${path}/mycart/newmycart.jsp"><span
-											style="color: white; font-weight: bold">장바구니</span></a></li>
-									<li class="nav-item"><a class="nav-link"
-										href="${path}/javaChip?command=selectProd"><span
-											style="color: white; font-weight: bold">강의목록</span></a></li>
-									<li class="nav-item"><a class="nav-link"
-										href="${path}/community/community.jsp"><span
-											style="color: white; font-weight: bold">커뮤니티</span></a></li>
-								</ul>
+					<li class="nav-item active"></li>
+					<c:choose>
+						<c:when test="${userId==null}">
+							<li class="nav-item"><a class="nav-link"
+								href="${path}/Login/login.jsp"><span
+									style="color: white; font-weight: bold">로그인</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								onclick="window.open('${path}/regForm/regform.jsp', '_blank', 'width=600, height=400');">
+									<span style="color: white; font-weight: bold">회원가입</span>
+							</a></li>
+						</c:when>
+						<c:when test="${userId!=null}">
+							<li class="nav-item"><a class="nav-link"
+								href="${path}/javaChip?command=logout"><span
+									style="color: white; font-weight: bold">로그아웃</span></a></li>
+						</c:when>
+					</c:choose>
+					<c:if
+						test="${sessionScope.userStatus == 1}">
+						<li class="nav-item"><a class="nav-link"
+							href="${path}/mypage/mypage.jsp"><span
+								style="color: white; font-weight: bold">마이페이지/내강의실</span></a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="${path}/mycart/newmycart.jsp"><span
+								style="color: white; font-weight: bold">장바구니</span></a></li>
+					</c:if>
+			        <c:if test="${sessionScope.userStatus==2}">
+			         <li class="nav-item">
+			           <a class="nav-link" href="${path}/javaChip?command=Tgangmok"><span style="color: white; font-weight: bold">마이페이지</span></a>
+			         </li>
+			          </c:if>
+					<li class="nav-item"><a class="nav-link"
+						href="${path}/javaChip?command=selectProd"><span
+							style="color: white; font-weight: bold">강의목록</span></a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="${path}/javaChip?command=community"><span
+							style="color: white; font-weight: bold">커뮤니티</span></a></li>
+					<c:if test="${sessionScope.userStatus == 3}">
+						<li class="nav-item"><a class="nav-link"
+							href="${path}/Admin/index.jsp"><span
+								style="color: white; font-weight: bold">관리자페이지</span></a></li>
+					</c:if>
+				</ul>
 							</div>
 						</div>
 					</nav>
@@ -126,10 +140,9 @@ var grade;
 			<div class="sidebar-heading">Start Bootstrap</div>
 			<div class="list-group list-group-flush">
 				<a href="${path}/javaChip?command=selectAllQnA"
-					class="list-group-item list-group-item-action bg-light">Q&A게시판</a>
+					class="list-group-item list-group-item-action bg-light">QnA게시판</a>
 				<a href="${path}/javaChip?command=selectAllEst"
 					class="list-group-item list-group-item-action bg-light">강의평게시판</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">회사정보</a>
 			</div>
 		</div>
 		<!-- /#sidebar-wrapper -->
@@ -169,16 +182,17 @@ var grade;
 					</ul>
 				</div>
 			</nav>
-
+			
 			<div class="container-fluid">
 				<h2 style="text-align: center; margin-top: 20px;">강의평 작성</h2>
+				
 				<hr>
 
 				<form name="form" id="form" role="form" method="post"
 					action="${pageContext.request.contextPath}/board/saveBoard">
 
 					<div class="mb-3">
-						<label for="title" style="font-weight: bold">강좌 선택</label> <br>
+						<label for="title" style="font-weight: bold">강좌 선택</label> <br> 
 						<select>
 								<option>강좌선택</option>
 							<c:forEach items="${itemList}" var="item" varStatus="state">
@@ -186,6 +200,14 @@ var grade;
 									/ ${item.product.teacher.name}</option>
 							</c:forEach>
 						</select>
+						<!-- 테스트... -->
+						<%-- <select>
+							<option>강좌선택</option>
+							<c:forEach items="${estPosList}" var="pos" varStatus="state">
+							<c:if test=""></c:if><!-- 해당강의에 대한 강의평 리스트가 있다면.. 목록 노출x -->
+								<option value="${pos.product.id}">${pos.product.name}</option>
+							</c:forEach>
+						</select> --%>
 					</div>
 					<div class="mb-3">
 						<label for="title" style="font-weight: bold">별점주기</label>
@@ -214,8 +236,8 @@ var grade;
 	<!-- /#page-content-wrapper -->
 	<!-- /#wrapper -->
 	<!-- Bootstrap core JavaScript -->
-	<script src="vendor/jquery/jquery.min.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="${path}/community/vendor/jquery/jquery.min.js"></script>
+	<script src="${path}/community/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 	<!-- Menu Toggle Script -->
 	<script>

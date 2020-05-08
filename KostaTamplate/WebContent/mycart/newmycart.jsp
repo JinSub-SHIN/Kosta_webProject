@@ -136,11 +136,13 @@ table{
 		
 // 	});//end click
 // });//end load
-
+ 
 $(function(){
 	$("[name=delete]").click(function(){
-		confirm("정말 삭제하시겠습니까?");
+		var result = confirm("정말 삭제하시겠습니까?");
+		if(result){
 		location.href="javaChip?command=deleteCart&prodId="+$(this).val();
+		}
 	});
 	
 	$("[name=order]").click(function(){
@@ -206,12 +208,21 @@ $(function(){
 			          <li class="nav-item" id="logout">
 			            <a class="nav-link" href="${path}/javaChip?command=logout"><span style="color: white; font-weight: bold">로그아웃</span></a>
 			          </li>
+			          <c:if test="${sessionScope.userStatus==1}">
 			          <li class="nav-item">
 			            <a class="nav-link" href="${path}/javaChip?command=selectByCusIdOrderLine"><span style="color: white; font-weight: bold">마이페이지/내강의실</span></a>
 			          </li>
+			          </c:if>
+			          <c:if test="${sessionScope.userStatus==2}">
 			          <li class="nav-item">
-						<a class="nav-link" href="${path}/mycart/newmycart.jsp"><span style="color: white; font-weight: bold">장바구니</span></a>
+			            <a class="nav-link" href="${path}/javaChip?command=selectByCusIdOrderLine"><span style="color: white; font-weight: bold">마이페이지</span></a>
+			          </li>
+			          </c:if>
+			          <c:if test="${sessionScope.userStatus==1}"><!-- customer인 경우에만 장바구니 보이기 -->
+			          <li class="nav-item">
+						<a class="nav-link" href="${path}/javaChip?command=selectCart&id=${userId}"><span style="color: white; font-weight: bold">장바구니</span></a>
 					  </li>
+					  </c:if>
 			          <li class="nav-item">
 			            <a class="nav-link" href="${path}/javaChip?command=selectProd"><span style="color: white; font-weight: bold">강의목록</span></a>
 			          </li>
@@ -317,8 +328,8 @@ $(function(){
 -->	    
 	    
 	    <hr>
-	    <button style="float: right" onclick="">전체삭제</button>
-	    <button style="float: right" onclick="">전체주문</button>
+<!-- 	    <button style="float: right" onclick="">전체삭제</button> -->
+<!-- 	    <button style="float: right" onclick="">전체주문</button> -->
 		
       </div>     
     </div>

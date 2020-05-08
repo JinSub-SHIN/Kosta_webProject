@@ -22,7 +22,10 @@ public class InsertPersonController implements Controller {
 		if(id==null || id.equals("") || pwd==null || pwd.equals("") || name==null || name.equals("")
 				|| phone==null || phone.equals("") || gender==null || gender.equals("") || status==null || status.equals("")) {
 		}
-		PersonService.insert(id, pwd, name, phone, gender, Integer.parseInt(status));
+		
+		Person person = new Person(id, pwd, name, phone, gender, Integer.parseInt(status));
+		
+		PersonService.insert(person);
 		ModelAndView mv = new ModelAndView();
 		mv.setRedirect(true);
 		mv.setViewName("selectUser");

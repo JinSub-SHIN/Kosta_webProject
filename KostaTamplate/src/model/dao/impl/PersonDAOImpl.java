@@ -128,8 +128,8 @@ public class PersonDAOImpl implements PersonDAO {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, id);
-			ps.setString(1, name);
-			ps.setString(2, phone);
+			ps.setString(2, name);
+			ps.setString(3, phone);
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				pwd = rs.getString("pwd");
@@ -161,21 +161,22 @@ public class PersonDAOImpl implements PersonDAO {
 		}
 		return person;
 	}
+	
 	@Override
-	public int insert(String id, String pwd, String name, String phone, String gender, int status) throws SQLException {
+	public int insert(Person person) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
-		String sql = pro.getProperty("inserPerson");
+		String sql = "INSERT INTO PERSON(ID, PWD, NAME, PHONE, GENDER, STATUS) VALUES (?,?,?,?,?,?)";
 		int result=0;
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, id);
-			ps.setString(2, pwd);
-			ps.setString(3, name);
-			ps.setString(4, phone);
-			ps.setString(5, gender);
-			ps.setInt(6, status);
+			ps.setString(1, person.getId());
+			ps.setString(2, person.getPwd());
+			ps.setString(3, person.getName());
+			ps.setString(4, person.getPhone());
+			ps.setString(5, person.getGender());
+			ps.setInt(6, person.getStatus());
 			result = ps.executeUpdate();
 		} finally {
 			DbUtil.dbClose(con, ps);
@@ -209,6 +210,33 @@ public class PersonDAOImpl implements PersonDAO {
 			DbUtil.dbClose(con, ps, rs);
 		}
 		
+		return person;
+	}
+	
+
+	/**
+	 * id에 해당하는 person 검색
+	 */
+	@Override
+	public Person selectById(String id) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM PERSON WHERE ID=?";
+		Person person=null;
+		try {			
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, id);
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				person = new Person(rs.getString("id"), rs.getString("PWD"), rs.getString("NAME"), 
+						rs.getString("PHONE"), rs.getString("GENDER"), rs.getInt("status"));
+			}
+		} finally {
+			DbUtil.dbClose(con, ps, rs);
+		}	
 		return person;
 	}
 	

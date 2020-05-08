@@ -36,8 +36,7 @@ public class InsertCustomerController implements Controller {
 		
 		CustomerService.insert(customer);
 		
-		ModelAndView mv = new ModelAndView(true, "Login/login.jsp");
-		
+		ModelAndView mv = new ModelAndView(true, "Admin/insertOk.jsp");
 		return mv;
 	}
 

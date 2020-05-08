@@ -9,6 +9,8 @@ public class Customer extends Person {
 	private String howToCome;
 	private Date regDate;
 	
+	private String uploadDateConvert;
+	
 	public Customer() {}
 	
 	public Customer(String id) {
@@ -68,6 +70,14 @@ public class Customer extends Person {
 
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
+	}
+
+	public String getUploadDateConvert() {
+		return uploadDateConvert;
+	}
+
+	public void setUploadDateConvert(String uploadDateConvert) {
+		this.uploadDateConvert = uploadDateConvert;
 	}
 	
 }

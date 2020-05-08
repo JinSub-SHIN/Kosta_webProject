@@ -89,7 +89,7 @@ public class ProductDAOImpl implements ProductDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<Product> list = new ArrayList<Product>();
-		String sql = "selectProdAll";
+		String sql = "SELECT * FROM PRODUCT";
 
 		try {
 			con = DbUtil.getConnection();
@@ -106,7 +106,7 @@ public class ProductDAOImpl implements ProductDAO {
 
 				Product product = new Product(rs.getString("prod_id"), rs.getString("prod_name"),
 						rs.getInt("prod_price"), rs.getString("description"), rs.getString("prod_level"), teacher,
-						category, rs.getDate("upload_date"), rs.getInt("valid_Date"));
+						category, rs.getDate("upload_date"), rs.getInt("valid_Date"), rs.getInt("STATUS"));
 
 				list.add(product);
 			}
@@ -363,6 +363,42 @@ public class ProductDAOImpl implements ProductDAO {
 			DbUtil.dbClose(con, ps, rs);
 		}
 
+		return list;
+	}
+	
+	@Override
+	public List<Product> selectByTeahcerId(String id) throws SQLException {
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<Product> list = new ArrayList<Product>();
+		String sql = "SELECT * FROM PRODUCT p JOIN TEACHER T on p.TEACHER_ID = T.TEACHER_ID WHERE p.TEACHER_ID=?";
+		
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, id);
+			rs = ps.executeQuery();			
+			
+			while(rs.next()) {
+				
+				Category category = new Category(rs.getInt("CATEGORY_ID"), null);
+				Teacher teacher = new Teacher(category, rs.getString("PICTURE_NAME"));
+				
+				Product product = new Product(rs.getString("PROD_ID"), rs.getString("PROD_NAME"), rs.getInt("PROD_PRICE"), 
+						rs.getString("DESCRIPTION"), rs.getString("PROD_LEVEL"), teacher, category, 
+						rs.getDate("UPLOAD_DATE"), rs.getInt("VALID_DATE"), rs.getInt("STATUS"));
+				
+				list.add(product);
+								
+			}
+			
+			
+		} finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		
 		return list;
 	}
 

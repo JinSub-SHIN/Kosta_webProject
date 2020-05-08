@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.Controller;
 import controller.ModelAndView;
-import exception.NotFoundException;
+import exception.NotLoginExeception;
 import model.service.CartService;
 
 public class InsertCartController implements Controller{
@@ -16,7 +16,7 @@ public class InsertCartController implements Controller{
 		String prodId = request.getParameter("prodId");
 		
 		if(customerId==null || customerId.equals("") || prodId==null || prodId.equals("")) {
-			throw new NotFoundException("입력값이 부족합니다.");
+			throw new NotLoginExeception();
 		}
 		
 		if(CartService.checkCart(customerId, prodId) == 0) {

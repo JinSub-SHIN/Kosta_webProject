@@ -4,27 +4,32 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import controller.Controller;
 import controller.ModelAndView;
-import model.dao.OrderLineDAO;
 import model.dao.impl.OrderLineDAOImpl;
+import model.dao.impl.PersonDAOImpl;
 import model.domain.EstimateBoard;
 import model.domain.OrderItem;
+import model.domain.Person;
 import model.service.EstimateService;
 
 public class SelectAllEstController implements Controller {
 
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		HttpSession session = request.getSession();
 		String userId = (String) request.getSession().getAttribute("userId");
 		
-		if(userId!=null) {
-			OrderLineDAO dao = new OrderLineDAOImpl();
-			List<OrderItem> itemList = dao.selectByCustomerId(userId);
-			if(itemList!=null) session.setAttribute("itemList", itemList); //id에 해당하는 구매내역이 있다면 세션에 저장
+		// userId로 person의 status를 세션에 저장
+		if (userId != null) {
+			Person person = new PersonDAOImpl().selectById(userId);
+			int userStatus = person.getStatus();
+			request.getSession().setAttribute("userStatus", userStatus);
+
+			if (userStatus == 1) {// customer
+				List<OrderItem> itemList = new OrderLineDAOImpl().selectByCustomerId(userId);
+				request.getSession().setAttribute("itemList", itemList);
+			}
 		}
 		
 		List<EstimateBoard> estimateList = EstimateService.selectAll();

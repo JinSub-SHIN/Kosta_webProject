@@ -30,29 +30,51 @@ table {
 </style>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script>
+	window.addEventListener("load", function() {
 
-	window.addEventListener("load", function(){
-		
 		var secret = document.getElementById("secrettype");
 		var normal = document.getElementById("normaltype");
-		var formpwd = document.getElementById("formpwd");	
-		
-		secret.onclick = function(){
+		var formpwd = document.getElementById("formpwd");
+
+		secret.onclick = function() {
 			formpwd.style.display = 'inline-block';
 		}
-		normal.onclick = function(){
+		normal.onclick = function() {
 			formpwd.style.display = 'none';
 		}
-});
+	});
 </script>
 <script>
-	$(function(){
-		$('#btnSave').click(function(){ //qna등록
-			/* if($('option').attr('name') == null || $('#title').val() == null || $('#content').val() == null){
-				alert("입력값이 부족합니다.");
+	$(function() {
+		$('#btnSave').click(function() { //qna등록
+			//유효성 체크
+			if($('[name=title]').val()==null || $('[name=title]').val()=="" 
+				|| $('[name=content]').val() ==null || $('[name=content]').val()==""){
+				alert("제목과 내용을 모두 입력해주세요!");
 				return;
-			}else{ */
-				location.href="${path}/javaChip?command=insertQnA&prodId="+$(":selected").val()+"&title="+$('#title').val()+"&content="+$('#content').val();
+			}
+			var status = $('input[name="secret"]:checked').val(); //옵션 값
+			if (status == 1) { //비밀글
+				location.href = "${path}/javaChip?command=insertQnA&prodId="
+						+ $(":selected").val()
+						+ "&title="
+						+ $('#title').val()
+						+ "&content="
+						+ $('#content').val()
+						+ "&status="
+						+ status
+						+ "&pwd="
+						+ $('input[name=password]').val();
+			} else if (status == 0) {
+				location.href = "${path}/javaChip?command=insertQnA&prodId="
+						+ $(":selected").val()
+						+ "&title="
+						+ $('#title').val()
+						+ "&content="
+						+ $('#content').val()
+						+ "&status="
+						+ status;
+			}
 		});//end save
 	});//end load
 </script>
@@ -77,7 +99,6 @@ table {
 									<li class="nav-item active"></li>
 									<c:choose>
 										<c:when test="${userId==null}">
-											<!-- 비로그인 상태 -->
 											<li class="nav-item"><a class="nav-link"
 												href="${path}/Login/login.jsp"><span
 													style="color: white; font-weight: bold">로그인</span></a></li>
@@ -87,24 +108,35 @@ table {
 											</a></li>
 										</c:when>
 										<c:when test="${userId!=null}">
-											<!-- 로그인 상태 -->
 											<li class="nav-item"><a class="nav-link"
 												href="${path}/javaChip?command=logout"><span
 													style="color: white; font-weight: bold">로그아웃</span></a></li>
-											<li class="nav-item"><a class="nav-link"
-												href="${path}/mypage/mypage.jsp"><span
-													style="color: white; font-weight: bold">마이페이지/내강의실</span></a></li>
-											<li class="nav-item"><a class="nav-link"
-												href="${path}/mycart/newmycart.jsp"><span
-													style="color: white; font-weight: bold">장바구니</span></a></li>
 										</c:when>
 									</c:choose>
+									<c:if test="${sessionScope.userStatus == 1}">
+									<li class="nav-item"><a class="nav-link"
+										href="${path}/mypage/mypage.jsp"><span
+											style="color: white; font-weight: bold">마이페이지/내강의실</span></a></li>
+									<li class="nav-item"><a class="nav-link"
+										href="${path}/mycart/newmycart.jsp"><span
+											style="color: white; font-weight: bold">장바구니</span></a></li>
+									</c:if>
+						        	<c:if test="${sessionScope.userStatus==2}">
+						         	<li class="nav-item">
+						          	 <a class="nav-link" href="${path}/javaChip?command=Tgangmok"><span style="color: white; font-weight: bold">마이페이지</span></a>
+						         	</li>
+						          	</c:if>
 									<li class="nav-item"><a class="nav-link"
 										href="${path}/javaChip?command=selectProd"><span
 											style="color: white; font-weight: bold">강의목록</span></a></li>
 									<li class="nav-item"><a class="nav-link"
-										href="${path}/community/community.jsp"><span
+										href="${path}/javaChip?command=community"><span
 											style="color: white; font-weight: bold">커뮤니티</span></a></li>
+									<c:if test="${sessionScope.userStatus == 3}">
+										<li class="nav-item"><a class="nav-link"
+											href="${path}/Admin/index.jsp"><span
+												style="color: white; font-weight: bold">관리자페이지</span></a></li>
+									</c:if>
 								</ul>
 							</div>
 						</div>
@@ -121,10 +153,9 @@ table {
 			<div class="sidebar-heading">Start Bootstrap</div>
 			<div class="list-group list-group-flush">
 				<a href="${path}/javaChip?command=selectAllQnA"
-					class="list-group-item list-group-item-action bg-light">Q&A게시판</a>
+					class="list-group-item list-group-item-action bg-light">QnA게시판</a>
 				<a href="${path}/javaChip?command=selectAllEst"
 					class="list-group-item list-group-item-action bg-light">강의평게시판</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">회사정보</a>
 			</div>
 		</div>
 		<!-- /#sidebar-wrapper -->
@@ -174,9 +205,9 @@ table {
 						<tr>
 							<th>옵션</th>
 							<th>일반글 &nbsp;<input type="radio" id="normaltype"
-								name="secret" value="normal" checked="checked"></th>
+								name="secret" value="0" checked="checked"></th>
 							<th>비밀글 &nbsp;<input type="radio" id="secrettype"
-								name="secret" value="secret"></th>
+								name="secret" value="1"></th>
 						</tr>
 					</table>
 					<p>
@@ -203,10 +234,9 @@ table {
 						<textarea class="form-control" rows="5" name="content"
 							id="content" placeholder="질문작성"></textarea>
 					</div>
-
 					<div class="mb-3" id="formpwd">
 						<label for="password" style="font-weight: bold">비밀번호</label> <input
-							type="password" class="form-control" name="title" id="title"
+							type="password" class="form-control" name="password" id=""
 							placeholder="최대4자리" maxlength="4">
 					</div>
 				</form>
@@ -230,10 +260,10 @@ table {
 
 	<!-- Menu Toggle Script -->
 	<script>
-    $("#menu-toggle").click(function(e) {
-      e.preventDefault();
-      $("#wrapper").toggleClass("toggled");
-    });
-  </script>
+		$("#menu-toggle").click(function(e) {
+			e.preventDefault();
+			$("#wrapper").toggleClass("toggled");
+		});
+	</script>
 </body>
 </html>
